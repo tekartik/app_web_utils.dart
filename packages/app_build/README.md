@@ -6,7 +6,7 @@ Browser service worker build utilities
 
 ```yaml
 dependencies:
-  tekartik_app_build:
+  tekartik_app_web_build:
     git:
       url: git://github.com/tekartik/app_web_utils.dart
       ref: dart2

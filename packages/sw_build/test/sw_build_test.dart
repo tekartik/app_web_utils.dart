@@ -1,9 +1,8 @@
-import 'package:test/test.dart';
 import 'dart:io';
 
 import 'package:path/path.dart';
-import 'package:tekartik_app_build/app_build.dart';
-import 'package:tekartik_app_build/src/test/generate_dart_project.dart';
+import 'package:tekartik_app_web_build/app_build.dart';
+import 'package:tekartik_app_web_build/src/test/generate_dart_project.dart';
 import 'package:test/test.dart';
 
 void main() {

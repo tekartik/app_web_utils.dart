@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:path/path.dart';
 import 'package:process_run/shell_run.dart';
-import 'package:tekartik_app_build/src/import.dart';
+import 'package:tekartik_app_web_build/src/import.dart';
 
 extension _DirectoryExt on Directory {
   /// Create if needed
