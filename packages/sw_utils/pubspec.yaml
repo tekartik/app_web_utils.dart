@@ -10,7 +10,7 @@ dependencies:
   service_worker:
   tekartik_browser_utils:
     git:
-      url: git://github.com/tekartik/browser_utils.dart
+      url: git@github.com/tekartik/browser_utils.dart
       ref: dart2
     version: '>=0.6.13'
 

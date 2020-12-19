@@ -8,8 +8,8 @@ Browser service worker build utilities
 dependencies:
   tekartik_app_web_build:
     git:
-      url: git://github.com/tekartik/app_web_utils.dart
+      url: git@github.com/tekartik/app_web_utils.dart
       ref: dart2
       path: packages/app_build
-    version: '>=0.6.13'
+    version: '>=0.0.1'
 ```
