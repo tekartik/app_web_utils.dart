@@ -22,7 +22,6 @@ Future<void> webdevServe(String dir, {String folder = 'web'}) async {
       'pub global run webdev serve --output $folder:${join('build', folder)}');
 }
 
-
 /// Deploy dir default to 'deploy/web, folder is relative to the build folder
 Future<void> buildToDeploy(String dir,
     {String folder = 'web', String deployDir}) async {
