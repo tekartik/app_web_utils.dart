@@ -24,7 +24,7 @@ Future<void> webdevServe(String dir, {String folder = 'web'}) async {
 
 /// Deploy dir default to 'deploy/web, folder is relative to the build folder
 Future<void> buildToDeploy(String dir,
-    {String folder = 'web', String deployDir}) async {
+    {String folder = 'web', String? deployDir}) async {
   var buildFolder = join(dir, 'build', folder);
   deployDir ??= join(dir, 'deploy', folder);
 
@@ -40,7 +40,7 @@ Future<void> buildToDeploy(String dir,
 }
 
 Future<void> httpDeployServe(String dir,
-    {String deployDir, String folder = 'web'}) async {
+    {String? deployDir, String folder = 'web'}) async {
   await checkAndActivatePackage('dhttpd');
   deployDir ??= join(dir, 'deploy', folder);
   var shell = Shell(workingDirectory: dir);

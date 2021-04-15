@@ -17,7 +17,7 @@ extension _DirectoryExt on Directory {
 }
 
 Future<void> generateDartProject(
-    {@required String template, @required String path}) async {
+    {required String template, required String path}) async {
   await Directory(path).prepare();
 
   var shell = Shell().cd(dirname(path));

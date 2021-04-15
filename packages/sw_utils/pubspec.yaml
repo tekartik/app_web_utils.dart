@@ -4,14 +4,17 @@ version: 0.1.0
 publish_to: none
 
 environment:
-  sdk: '>=2.8.1 <3.0.0'
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
   service_worker:
+    git:
+      url: git://github.com/tekartikdev/service_worker
+      ref: null_safety
   tekartik_browser_utils:
     git:
       url: git://github.com/tekartik/browser_utils.dart
-      ref: dart2
+      ref: null_safety
     version: '>=0.6.13'
 
 dev_dependencies:
