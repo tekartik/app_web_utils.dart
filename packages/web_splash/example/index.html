@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tekartik_web_splash_example</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="splash_512.png">
+    <script defer src="main.dart.js"></script>
+    <style>
+        /* optional for testing */
+        body {
+            background-color: red;
+        }
+
+        #app_splash {
+            padding: 32px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0;
+            transition: opacity 300ms cubic-bezier(0, 0, 0.2, 1);
+            will-change: opacity;
+            z-index: 100;
+            background: url("splash_512.png") no-repeat;
+            background-position: center;
+            background-color: white;
+            background-size: 320px 320px;
+            background-origin: content-box;
+        }
+
+        body.app-loading #app_splash {
+            opacity: 1;
+        }
+
+        @media screen and (max-width: 384px) {
+            #app_splash {
+                background-size: contain;
+            }
+        }
+    </style>
+</head>
+<ul>
+    <li><a href="?splashneverends">Splash never ends</a></li>
+    <li><a href="?longsplash">Long splash</a></li>
+</ul>
+<div id="output">d</div>
+<!-- set app-loading class on body -->
+<body class="app-loading">
+<!-- add id splash -->
+<div id="app_splash">
+</div>
+</body>
+</html>
