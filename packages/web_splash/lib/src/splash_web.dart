@@ -10,6 +10,7 @@ class Splash {
       });
     }
   }
+
   void hide() {
     // right away
     /*
@@ -24,6 +25,7 @@ class Splash {
 }
 
 final splash = Splash();
+
 void webSplashHide() {
   splash.hide();
 }

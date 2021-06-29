@@ -12,7 +12,6 @@ void main() {
       await generateDartProject(path: path, template: 'web-simple');
       await File(join(path, 'web', 'deploy.yaml')).writeAsString('''
 files:
-  - favicon.ico
   - index.html
   - main.dart.js
   - styles.css
