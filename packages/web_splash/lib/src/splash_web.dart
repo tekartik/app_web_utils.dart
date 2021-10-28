@@ -12,15 +12,22 @@ class Splash {
   }
 
   void hide() {
-    // right away
-    /*
-    int elapsed = sw.elapsedMilliseconds;
-    const int delayMin = 1500;
-    if (elapsed < delayMin) {
-      await sleep(delayMin - elapsed);
+    void _hide() {
+      document.body!.classes.remove('app-loading');
     }
-    */
-    document.body!.classes.remove('app-loading');
+
+    if (Uri.base.queryParameters.containsKey('splash')) {
+      var delay = int.tryParse(Uri.base.queryParameters['splash']!);
+      if (delay != null) {
+        Future.delayed(Duration(milliseconds: delay)).then((_) {
+          _hide();
+        });
+      }
+      // otherwise do not hide
+
+    } else {
+      _hide();
+    }
   }
 }
 

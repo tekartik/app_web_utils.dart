@@ -7,13 +7,6 @@ Future<void> main() async {
   print(uri);
   print(uri.queryParameters);
 
-  if (uri.queryParameters.containsKey('splashneverends')) {
-    return;
-  }
-  if (uri.queryParameters.containsKey('longsplash')) {
-    await Future.delayed(Duration(seconds: 10));
-  }
-
   webSplashHide();
 
   querySelector('#output')!.text = '''
