@@ -1,0 +1,34 @@
+name: tekartik_app_web_build
+description: Web app build helper
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+
+dependencies:
+
+  tekartik_deploy:
+    git:
+      url: git://github.com/tekartik/deploy.dart
+      ref: null_safety
+    version: '>=0.6.2'
+  crypto:
+  process_run:
+  dev_test:
+
+dev_dependencies:
+  pedantic: ^1.9.0
+  test: ^1.14.4
+  tekartik_sw_build:
+    git:
+      url: git://github.com/tekartik/app_web_utils.dart
+      ref: null_safety
+      path: packages/sw_build
+    version: '>=0.1.0'
+
+dependency_overrides:
+  tekartik_sw_build:
+    path: ../sw_build
+  tekartik_sw_utils:
+    path: ../sw_utils

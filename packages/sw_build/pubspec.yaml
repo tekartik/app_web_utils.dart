@@ -1,0 +1,26 @@
+name: tekartik_sw_build
+description: Service worker build utils
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+
+dependencies:
+  tekartik_sw_utils:
+    git:
+      url: git@github.com/tekartik/app_web_utils.dart
+      ref: null_safety
+      path: packages/sw_utils
+    version: '>=0.1.0'
+  crypto:
+
+dev_dependencies:
+  pedantic: ^1.9.0
+  test: ^1.14.4
+  tekartik_app_web_build:
+    path: ../app_build
+
+dependency_overrides:
+  tekartik_sw_utils:
+    path: ../sw_utils
