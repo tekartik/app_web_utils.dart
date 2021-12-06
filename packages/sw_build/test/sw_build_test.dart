@@ -1,3 +1,6 @@
+@TestOn('vm')
+library tekartik_sw_build_test;
+
 import 'package:tekartik_sw_build/src/sw_build.dart';
 import 'package:test/test.dart';
 
