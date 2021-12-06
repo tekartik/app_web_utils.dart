@@ -9,12 +9,12 @@ environment:
 dependencies:
   service_worker:
     git:
-      url: git://github.com/tekartikdev/service_worker
-      ref: null_safety
+      url: https://github.com/tekartikdev/service_worker
+      ref: dart2_3
   tekartik_browser_utils:
     git:
-      url: git://github.com/tekartik/browser_utils.dart
-      ref: null_safety
+      url: https://github.com/tekartik/browser_utils.dart
+      ref: dart2_3
     version: '>=0.6.13'
 
 dev_dependencies:

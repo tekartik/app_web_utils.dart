@@ -8,8 +8,8 @@ Browser service worker utilities
 dependencies:
   tekartik_sw_utils:
     git:
-      url: git@github.com/tekartik/app_web_utils.dart
-      ref: null_safety
+      url: https://github.com/tekartik/app_web_utils.dart
+      ref: dart2_3
       path: packages/sw_utils
     version: '>=0.1.0'
 ```

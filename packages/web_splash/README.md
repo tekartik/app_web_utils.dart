@@ -3,8 +3,8 @@
 ```yaml
 tekartik_web_splash:
   git:
-    url: git://github.com/tekartik/app_web_utils.dart
-    ref: null_safety
+    url: https://github.com/tekartik/app_web_utils.dart
+    ref: dart2_3
     path: packages/web_splash
   version: '>=0.1.0'
 ```
