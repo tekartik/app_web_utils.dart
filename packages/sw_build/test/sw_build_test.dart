@@ -8,7 +8,7 @@ void main() {
   group('sw_build', () {
     test('print', () async {
       await swPackageBuild('.', directory: 'example');
-    });
+    }, timeout: Timeout(Duration(minutes: 5)));
   });
 }
 
