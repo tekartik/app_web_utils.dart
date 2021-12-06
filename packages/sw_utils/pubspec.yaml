@@ -7,10 +7,10 @@ environment:
   sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
-  service_worker:
-    git:
-      url: https://github.com/tekartikdev/service_worker
-      ref: dart2_3
+  service_worker: '>=0.3.0-0'
+  #  git:
+  #    url: https://github.com/tekartikdev/service_worker
+  #    ref: dart2_3
   tekartik_browser_utils:
     git:
       url: https://github.com/tekartik/browser_utils.dart
