@@ -11,7 +11,7 @@ Future<void> webdevBuild(String dir, {String folder = 'web'}) async {
   var shell = Shell(workingDirectory: dir);
   await checkAndActivatePackage('webdev');
   await shell.run(
-      'pub global run webdev build --output $folder:${join('build', folder)}');
+      'dart pub global run webdev build --output $folder:${join('build', folder)}');
 }
 
 /// dir is the project dir, folder is the top level folder
@@ -19,7 +19,7 @@ Future<void> webdevServe(String dir, {String folder = 'web'}) async {
   var shell = Shell(workingDirectory: dir);
   await checkAndActivatePackage('webdev');
   await shell.run(
-      'pub global run webdev serve --output $folder:${join('build', folder)}');
+      'dart pub global run webdev serve --output $folder:${join('build', folder)}');
 }
 
 /// Deploy dir default to 'deploy/web, folder is relative to the build folder
@@ -45,5 +45,6 @@ Future<void> httpDeployServe(String dir,
   deployDir ??= join(dir, 'deploy', folder);
   var shell = Shell(workingDirectory: dir);
   print('http://localhost:8080');
-  await shell.run('pub global run dhttpd --path ${shellArgument(deployDir)}');
+  await shell
+      .run('dart pub global run dhttpd --path ${shellArgument(deployDir)}');
 }
