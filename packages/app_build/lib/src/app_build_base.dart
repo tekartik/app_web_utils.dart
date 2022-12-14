@@ -22,6 +22,27 @@ Future<void> webdevServe(String dir, {String folder = 'web'}) async {
       'dart pub global run webdev serve --output $folder:${join('build', folder)}');
 }
 
+/// path is the project dir
+Future<void> webdevPubGet(String path) async {
+  var shell = Shell(workingDirectory: path);
+  await shell.run('dart pub get');
+}
+
+/// path is the project dir
+Future<void> webdevPubUpgrade(String path) async {
+  var shell = Shell(workingDirectory: path);
+  await shell.run('dart pub upgrade');
+}
+
+/// dir is the project dir, folder is the top level folder
+Future<void> webdevClean(String path, {String folder = 'web'}) async {
+  try {
+    var dir = 'build';
+    print('Deleting \'$dir\' folder');
+    await Directory(join(path, dir)).delete(recursive: true);
+  } catch (_) {}
+}
+
 /// Deploy dir default to 'deploy/web, folder is relative to the build folder
 Future<void> buildToDeploy(String dir,
     {String folder = 'web', String? deployDir}) async {

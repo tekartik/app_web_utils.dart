@@ -18,6 +18,8 @@ files:
 ''');
       await webdevBuild(path);
       await buildToDeploy(path);
+      await webdevClean(path);
+      await webdevPubGet(path);
     }, timeout: const Timeout(Duration(minutes: 5)));
   });
 }
