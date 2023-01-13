@@ -10,3 +10,4 @@ export 'src/app_build_base.dart'
         webdevClean,
         webdevPubGet,
         webdevPubUpgrade;
+export 'src/web_project.dart' show WebProject;
