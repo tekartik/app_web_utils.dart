@@ -25,14 +25,12 @@
             transition: opacity 300ms cubic-bezier(0, 0, 0.2, 1);
             will-change: opacity;
             z-index: 100;
-            background: url("splash_512.png") no-repeat;
-            background-position: center;
-            background-color: white;
+            background: white url("splash_512.png") no-repeat center;
             background-size: 320px 320px;
             background-origin: content-box;
         }
 
-        body.app-loading #app_splash {
+        #app_splash.app-loading {
             opacity: 1;
         }
 
@@ -44,7 +42,7 @@
     </style>
 </head>
 <!-- set app-loading class on body -->
-<body class="app-loading">
+<body>
 <!-- test only -->
 <ul>
     <li><a href="?splash">Splash never ends</a></li>
@@ -53,7 +51,7 @@
 </ul>
 <div id="output"></div>
 <!-- add id splash -->
-<div id="app_splash">
+<div id="app_splash"  class="app-loading">
 </div>
 </body>
 </html>

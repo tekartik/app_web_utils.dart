@@ -2,4 +2,12 @@
 library tekartik_app_web_build;
 
 export 'src/app_build_base.dart'
-    show webdevBuild, webdevServe, buildToDeploy, httpDeployServe;
+    show
+        webdevBuild,
+        webdevServe,
+        buildToDeploy,
+        httpDeployServe,
+        webdevClean,
+        webdevPubGet,
+        webdevPubUpgrade;
+export 'src/web_project.dart' show WebProject;

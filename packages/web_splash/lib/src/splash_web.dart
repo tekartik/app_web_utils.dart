@@ -1,10 +1,30 @@
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html';
 
+const _appLoadingClassDefault = 'app-loading';
+const _appSplashIdDefault = 'app_splash';
+
+/// In the first version the app-loading class was set on the body
+/// Now we set it on the app_splash id
+///
+/// ```html
+/// <!-- add id splash -->
+/// <div id="app_splash" class="app-loading"></div>
+/// ```
 class Splash {
-  Splash() {
-    var loadEl = document.getElementById('app_splash');
+  late final String appSplashId;
+  late final String appLoadingClass;
+  Element? _appSplashElement;
+
+  /// [appSplashId] default to 'app_splash.
+  ///
+  /// [appLoadingClass] default to 'app-loading
+  Splash({String? appSplashId, String? appLoadingClass}) {
+    this.appSplashId = appSplashId ?? _appSplashIdDefault;
+    this.appLoadingClass = appLoadingClass ?? _appLoadingClassDefault;
+    var loadEl = document.getElementById(this.appSplashId);
     if (loadEl != null) {
+      _appSplashElement = loadEl;
       loadEl.on['transitionend'].listen((_) {
         loadEl.remove();
       });
@@ -12,21 +32,24 @@ class Splash {
   }
 
   void hide() {
-    void _hide() {
-      document.body!.classes.remove('app-loading');
+    void doHide() {
+      // Compat, still remove the class on the body (if not changed)
+      if (appLoadingClass == _appLoadingClassDefault) {
+        document.body!.classes.remove(appLoadingClass);
+      }
+      _appSplashElement?.classes.remove(appLoadingClass);
     }
 
     if (Uri.base.queryParameters.containsKey('splash')) {
       var delay = int.tryParse(Uri.base.queryParameters['splash']!);
       if (delay != null) {
         Future.delayed(Duration(milliseconds: delay)).then((_) {
-          _hide();
+          doHide();
         });
       }
       // otherwise do not hide
-
     } else {
-      _hide();
+      doHide();
     }
   }
 }
