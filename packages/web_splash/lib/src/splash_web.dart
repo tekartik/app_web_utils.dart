@@ -48,7 +48,6 @@ class Splash {
         });
       }
       // otherwise do not hide
-
     } else {
       doHide();
     }

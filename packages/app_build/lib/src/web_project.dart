@@ -8,7 +8,6 @@ class WebProject {
   // windows/posix path ok
   WebProject(String path,
       {
-
       /// Default to empty
       List<String>? flavors,
       String? buildPlatform,
