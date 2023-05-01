@@ -1,9 +1,9 @@
 name: tekartik_web_splash
 description: Basic web splash support.
-version: 0.3.0
+version: 0.3.1
 
 environment:
-  sdk: '>=2.18.0 <3.0.0'
+  sdk: '>=2.18.0 <4.0.0'
 
 #dependencies:
 #  path: ^1.7.0

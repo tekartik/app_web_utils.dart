@@ -4,6 +4,10 @@ import 'dart:html';
 const _appLoadingClassDefault = 'app-loading';
 const _appSplashIdDefault = 'app_splash';
 
+/// Must be initialized before flutter engine starts as it may change later.
+/// Call webSplashReady() to save the current Uri
+var _startUri = Uri.base;
+
 /// In the first version the app-loading class was set on the body
 /// Now we set it on the app_splash id
 ///
@@ -40,8 +44,8 @@ class Splash {
       _appSplashElement?.classes.remove(appLoadingClass);
     }
 
-    if (Uri.base.queryParameters.containsKey('splash')) {
-      var delay = int.tryParse(Uri.base.queryParameters['splash']!);
+    if (_startUri.queryParameters.containsKey('splash')) {
+      var delay = int.tryParse(_startUri.queryParameters['splash']!);
       if (delay != null) {
         Future.delayed(Duration(milliseconds: delay)).then((_) {
           doHide();
@@ -58,4 +62,9 @@ final splash = Splash();
 
 void webSplashHide() {
   splash.hide();
+}
+
+/// Save current Uri
+void webSplashReady() {
+  _startUri;
 }
