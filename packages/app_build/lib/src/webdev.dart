@@ -1,3 +1,4 @@
+import 'package:dev_test/build_support.dart';
 import 'package:process_run/shell.dart';
 
 import 'import.dart';
@@ -15,13 +16,8 @@ Future<void> webdevReady({bool verbose = false, bool force = false}) async {
         shellEnvironment = ShellEnvironment()
           ..aliases['webdev'] = 'dart pub global run webdev';
       }
-      try {
-        // Exists?
-        await run('webdev --version', verbose: verbose);
-      } catch (e) {
-        await checkAndActivatePackage('webdev');
-        await run('webdev --version', verbose: verbose);
-      }
+      await checkAndActivateWebdev();
+      await run('webdev --version', verbose: verbose);
     });
   }
 }

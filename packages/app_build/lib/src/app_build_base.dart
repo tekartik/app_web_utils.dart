@@ -1,13 +1,16 @@
 import 'package:fs_shim/fs_io.dart';
 import 'package:path/path.dart';
 import 'package:process_run/shell_run.dart';
+
 import 'package:tekartik_app_web_build/src/webdev.dart';
 import 'package:tekartik_deploy/fs/fs_deploy.dart';
 
+import 'build_common.dart';
 import 'import.dart';
 
 /// dir is the project dir, folder is the top level folder, default to 'web';
-Future<void> webdevBuild(String dir, {String? folder = 'web'}) async {
+Future<void> webdevBuild(String dir,
+    {String? folder = webAppSrcDirDefault}) async {
   folder ??= 'web';
   var shell = Shell(workingDirectory: dir);
   await webdevReady();
@@ -15,10 +18,12 @@ Future<void> webdevBuild(String dir, {String? folder = 'web'}) async {
 }
 
 /// dir is the project dir, folder is the top level folder
-Future<void> webdevServe(String dir, {String folder = 'web'}) async {
+Future<void> webdevServe(String dir,
+    {String folder = webAppSrcDirDefault, int? port}) async {
   var shell = Shell(workingDirectory: dir);
   await webdevReady();
-  await shell.run('webdev serve --output $folder:${join('build', folder)}');
+  await shell.run(
+      'webdev serve $folder${port == null ? '' : ':$port'} --auto refresh');
 }
 
 /// path is the project dir

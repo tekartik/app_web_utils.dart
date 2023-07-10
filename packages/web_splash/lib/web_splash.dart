@@ -3,4 +3,4 @@
 /// More dartdocs go here.
 library tekartik_web_splash;
 
-export 'src/splash.dart' show webSplashHide;
+export 'src/splash.dart' show webSplashHide, webSplashReady;

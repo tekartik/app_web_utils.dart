@@ -9,7 +9,7 @@ dependencies:
   tekartik_sw_build:
     git:
       url: git@github.com/tekartik/app_web_utils.dart
-      ref: dart2_3
+      ref: dart3a
       path: packages/sw_build
     version: '>=0.1.0'
 ```
