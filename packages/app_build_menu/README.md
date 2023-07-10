@@ -11,7 +11,7 @@ dev_dependencies:
   tekartik_app_web_build_menu:
     git: 
         url: https://github.com/tekartik/app_web_utils.dart
-        ref: dart2_3
+        ref: dart3a
         path: packages/app_build_menu
     version: '>=0.3.0'
     
