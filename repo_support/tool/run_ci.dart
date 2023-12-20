@@ -1,6 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages
 
-import 'package:dev_test/package.dart';
+import 'package:dev_build/package.dart';
 import 'package:path/path.dart';
 
 Future main() async {

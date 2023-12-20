@@ -8,8 +8,8 @@ environment:
 
 dev_dependencies:
   test: '>=1.0.0'
-  dev_test: '>=0.13.4-dev.1'
-  lints:
+  dev_build: '>=0.13.4-dev.1'
+  lints: '>=2.0.0'
 
 dependency_overrides:
 #  tekartik_build_utils:

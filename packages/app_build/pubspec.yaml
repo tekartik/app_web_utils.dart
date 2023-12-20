@@ -15,12 +15,12 @@ dependencies:
     version: '>=0.6.2'
   crypto:
   process_run:
-  dev_test:
+  dev_build:
   fs_shim:
   path:
 
 dev_dependencies:
-  test: ^1.14.4
+  test: '>=1.14.4'
   tekartik_sw_build:
     git:
       url: https://github.com/tekartik/app_web_utils.dart
