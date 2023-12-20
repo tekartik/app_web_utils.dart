@@ -10,7 +10,7 @@ environment:
 dependencies:
   path:
   args:
-  dev_test:
+  dev_build:
   process_run:
   tekartik_test_menu_io:
     git:

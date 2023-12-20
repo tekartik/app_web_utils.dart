@@ -1,4 +1,4 @@
-import 'package:dev_test/build_support.dart';
+import 'package:dev_build/build_support.dart';
 import 'package:process_run/shell.dart';
 
 import 'import.dart';
