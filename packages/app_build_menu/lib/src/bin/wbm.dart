@@ -22,7 +22,7 @@ void wbm(List<String> arguments) {
   if (appPath.isEmpty) {
     appPath = [Directory.current.path];
   }
-  mainMenu(appPath.sublist(1), () {
+  mainMenuConsole(appPath.sublist(1), () {
     menuWebAppContent(
         options: WebAppOptions(
             packageTop: appPath.first, srcDir: srcDir, webPort: webPort));
