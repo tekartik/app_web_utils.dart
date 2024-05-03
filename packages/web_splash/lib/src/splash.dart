@@ -1,1 +1,1 @@
-export 'splash_stub.dart' if (dart.library.html) 'splash_web.dart';
+export 'splash_stub.dart' if (dart.library.js_interop) 'splash_web.dart';
