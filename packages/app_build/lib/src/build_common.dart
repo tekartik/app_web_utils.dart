@@ -1,9 +1,19 @@
+import 'package:tekartik_firebase_build/firebase_deploy.dart';
+
+/// Default deploy directory for web app.
 const webAppDeployDirDefault = 'deploy';
+
+/// Default source directory for web app.
 const webAppSrcDirDefault = 'web';
+
+/// Default web port for web app.
 const webAppPortDefault = 8060;
 
+/// Compat. to deprecate.
+typedef WebAppOptions = WebAppBuildOptions;
+
 /// Node app common options.
-class WebAppOptions {
+class WebAppBuildOptions {
   /// App packages (default to '.')
   late final String packageTop;
 
@@ -16,10 +26,24 @@ class WebAppOptions {
   /// Web port, default dynamic.
   final int? webPort;
 
-  WebAppOptions(
+  /// Constructor.
+  WebAppBuildOptions(
       {String? packageTop, String? deployDir, String? srcDir, this.webPort}) {
     this.packageTop = packageTop ?? '.';
     this.deployDir = deployDir ?? webAppDeployDirDefault;
     this.srcDir = srcDir ?? webAppSrcDirDefault;
   }
+}
+
+/// Firebase web app options
+class FirebaseWebAppOptions {
+  /// Build options
+  final WebAppBuildOptions buildOptions;
+
+  /// Deploy options
+  final FirebaseDeployOptions deployOptions;
+
+  /// Constructor.
+  FirebaseWebAppOptions(
+      {required this.buildOptions, required this.deployOptions});
 }

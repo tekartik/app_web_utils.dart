@@ -1,6 +1,7 @@
 /// Support for building a regular webapp.
 library tekartik_app_web_build;
 
+export 'package:tekartik_firebase_build/firebase_deploy.dart';
 export 'src/app_build_base.dart'
     show
         webdevBuild,
@@ -10,6 +11,6 @@ export 'src/app_build_base.dart'
         webdevClean,
         webdevPubGet,
         webdevPubUpgrade;
-export 'src/build_common.dart' show WebAppOptions;
-export 'src/web_app_builder.dart' show WebAppBuilder;
+export 'src/build_common.dart' show WebAppOptions, FirebaseWebAppOptions;
+export 'src/web_app_builder.dart' show WebAppBuilder, FirebaseWebAppBuilder;
 export 'src/web_project.dart' show WebProject;

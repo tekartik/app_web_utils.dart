@@ -1,6 +1,6 @@
 # tekartik_sw_build.dart
 
-Browser service worker build utilities
+Browser service worker build/deploy utilities
 
 ## Setup
 

@@ -19,3 +19,35 @@ void menuWebAppContent({WebAppOptions? options}) {
     });
   });
 }
+
+void menuFirebaseWebAppContent(
+    {required List<FirebaseWebAppBuilder> builders}) {
+  for (var builder in builders) {
+    menu('target ${builder.target}', () {
+      menuFirebaseWebAppBuilderContent(builder: builder);
+    });
+  }
+}
+
+void menuFirebaseWebAppBuilderContent(
+    {required FirebaseWebAppBuilder builder}) {
+  item('build', () async {
+    await builder.build();
+  });
+  item('serve', () async {
+    await builder.serve();
+  });
+  item('clean', () async {
+    await builder.clean();
+  });
+  item('deploy', () async {
+    await builder.deploy();
+  });
+  item('serveDeployed', () async {
+    await builder.serveDeployed();
+  });
+  item('buildAndServeDeployed', () async {
+    await builder.build();
+    await builder.serveDeployed();
+  });
+}

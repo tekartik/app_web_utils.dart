@@ -64,6 +64,7 @@ Future<void> buildToDeploy(String dir,
       dst: Directory(deployDir));
 }
 
+/// Serve release build using dhttpd
 Future<void> httpDeployServe(String dir,
     {String? deployDir, String folder = 'web'}) async {
   await checkAndActivatePackage('dhttpd');

@@ -6,7 +6,7 @@ class WebProject {
   /// The path
   late final String path;
 
-  // windows/posix path ok
+  /// windows/posix path ok
   WebProject(String path,
       {
       /// Default to empty

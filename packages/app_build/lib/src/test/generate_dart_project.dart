@@ -16,6 +16,7 @@ extension _DirectoryExt on Directory {
   }
 }
 
+/// Generate a dart project
 Future<void> generateDartProject(
     {required String template, required String path}) async {
   await Directory(path).prepare();

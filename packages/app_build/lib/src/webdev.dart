@@ -5,6 +5,8 @@ import 'import.dart';
 
 final _webdevReadyLock = Lock();
 var _webdevReady = false;
+
+/// Check and activate webdev
 Future<void> webdevReady({bool verbose = false, bool force = false}) async {
   if (!_webdevReady || force) {
     if (verbose) {
