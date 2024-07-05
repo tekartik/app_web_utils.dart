@@ -17,10 +17,10 @@ class WebAppBuildOptions {
   /// App packages (default to '.')
   late final String packageTop;
 
-  /// Typically 'deploy' for a single node app
+  /// Default to 'deploy'.
   late final String deployDir;
 
-  /// Typically 'bin' to 'node', default to 'bin'
+  /// Default to web.
   late final String srcDir;
 
   /// Web port, default dynamic.

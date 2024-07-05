@@ -23,6 +23,11 @@ dependencies:
       url: https://github.com/tekartik/app_build.dart
       ref: dart3a
       path: packages/firebase_build
+  tekartik_web_publish:
+    git:
+      url: https://github.com/tekartik/app_build.dart
+      ref: dart3a
+      path: packages/web_publish
 
 dev_dependencies:
   # Needed direct dependencies
@@ -34,6 +39,11 @@ dev_dependencies:
 dependency_overrides:
   tekartik_app_web_build:
     path: ../app_build
+  # Tmp
+  # tekartik_web_publish:
+  #  path: ../../../app_build.dart/packages/web_publish
+  # tekartik_firebase_build:
+  #  path: ../../../app_build.dart/packages/firebase_build
 
 executables:
   wbm: wbm

@@ -20,6 +20,7 @@ void menuWebAppContent({WebAppOptions? options}) {
   });
 }
 
+/// Compat
 void menuFirebaseWebAppContent(
     {required List<FirebaseWebAppBuilder> builders}) {
   for (var builder in builders) {
@@ -29,8 +30,21 @@ void menuFirebaseWebAppContent(
   }
 }
 
+void menuCommonWebAppContent({required List<CommonWebAppBuilder> builders}) {
+  for (var builder in builders) {
+    menu('target ${builder.target}', () {
+      menuCommonWebAppBuilderContent(builder: builder);
+    });
+  }
+}
+
+/// Compat
 void menuFirebaseWebAppBuilderContent(
     {required FirebaseWebAppBuilder builder}) {
+  menuCommonWebAppBuilderContent(builder: builder);
+}
+
+void menuCommonWebAppBuilderContent({required CommonWebAppBuilder builder}) {
   item('build', () async {
     await builder.build();
   });
@@ -49,5 +63,9 @@ void menuFirebaseWebAppBuilderContent(
   item('buildAndServeDeployed', () async {
     await builder.build();
     await builder.serveDeployed();
+  });
+  item('buildAndDeploy', () async {
+    await builder.build();
+    await builder.deploy();
   });
 }
