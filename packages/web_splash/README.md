@@ -14,7 +14,6 @@ tekartik_web_splash:
 Define you splash in the html/css:
 
 ```html
-<!-- set app-loading class on body -->
 <body>
     ...
     
