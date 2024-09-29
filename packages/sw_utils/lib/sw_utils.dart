@@ -1,7 +1,7 @@
 /// Support for doing something awesome.
 ///
 /// More dartdocs go here.
-library sw_utils;
+library;
 
 export 'src/sw_utils_base.dart';
 
