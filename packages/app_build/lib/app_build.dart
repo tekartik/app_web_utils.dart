@@ -11,7 +11,8 @@ export 'src/app_build_base.dart'
         webdevClean,
         webdevPubGet,
         webdevPubUpgrade;
-export 'src/build_common.dart' show WebAppOptions, FirebaseWebAppOptions;
+export 'src/build_common.dart'
+    show WebAppOptions, FirebaseWebAppOptions, WebAppBuildOptions;
 export 'src/web_app_builder.dart'
     show
         WebAppBuilder,
