@@ -1,7 +1,9 @@
 /// Support for building a regular webapp.
 library;
 
+export 'package:tekartik_common_build/common_app_builder.dart';
 export 'package:tekartik_firebase_build/firebase_deploy.dart';
+
 export 'src/app_build_base.dart'
     show
         webdevBuild,

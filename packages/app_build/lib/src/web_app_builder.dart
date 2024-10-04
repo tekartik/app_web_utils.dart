@@ -5,8 +5,9 @@ import 'package:tekartik_web_publish/web_publish.dart';
 import 'build.dart';
 
 /// New builder helper
-class WebAppBuilder {
+class WebAppBuilder implements CommonAppBuilder {
   /// Path to the package top
+  @override
   String get path => options.packageTop;
 
   /// Options
