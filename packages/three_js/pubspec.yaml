@@ -8,6 +8,9 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
+  cv: ">=1.1.1"
+  web: '>=1.1.0'
+  pub_semver:
   tekartik_js_utils_interop:
     git:
       url: https://github.com/tekartik/js_utils.dart
@@ -17,6 +20,11 @@ dependencies:
     git:
       url: https://github.com/tekartik/common_utils.dart
       ref: dart3a
+  tekartik_js_utils:
+    git:
+      url: https://github.com/tekartik/js_utils.dart
+      ref: dart3a
+      path: js_utils
 
 dev_dependencies:
   lints: ">=5.0.0"

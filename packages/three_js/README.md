@@ -6,10 +6,9 @@ Three js experimental js bindings
 
 ```yaml
 dependencies:
-  tekartik_mediapipe:
+  tekartik_three_js:
     git:
       url: https://github.com/tekartik/app_web_utils.dart
       ref: dart3a
-      path: packages/mediapipe_js
-
+      path: packages/three_js
 ```

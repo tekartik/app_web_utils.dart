@@ -3,7 +3,7 @@ import 'dart:js_interop';
 import 'package:tekartik_common_utils/common_utils_import.dart';
 import 'package:web/web.dart' as web;
 
-/// MediaPipe Task APIs for vision tasks.
+/// MediaPipe Vision module
 extension type MediaPipeVisionModuleJs(JSObject _) implements JSObject {}
 
 /// Media pipe vision module ext
@@ -111,7 +111,8 @@ extension MpvFilesetResolverJsExt on MpvFilesetResolverJs {
   external JSPromise<MpvFilesetJs> _forVisionTasks(String basePath);
 
   /// Resolves the files required for the MediaPipe Task APIs.
-  Future<MpvFilesetJs> forVisionTasks(String basePath) async {
+  Future<MpvFilesetJs> forVisionTasks({String? basePath}) async {
+    basePath ??= _mediaPipeVisionBaseUrl.withVersion(mediaPipeLatestVersion);
     return await _forVisionTasks(basePath).toDart;
   }
 }
@@ -119,16 +120,27 @@ extension MpvFilesetResolverJsExt on MpvFilesetResolverJs {
 /// Fileset for MediaPipe Vision tasks.
 extension type MpvFilesetJs(JSObject _) implements JSObject {}
 
-const _mediapipeModule =
-    'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3';
+extension on String {
+  String withVersion(Version version) =>
+      replaceAll('{{version}}', version.toString());
+}
+
+const _mediapipeModuleBase =
+    'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@{{version}}';
 
 /// MediaPipe Vision base URL
-const mediaPipeVisionBaseUrl =
-    'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm';
+const _mediaPipeVisionBaseUrl =
+    'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@{{version}}/wasm';
+
+/// Latest version of MediaPipe
+final mediaPipeLatestVersion = Version(0, 10, 17);
 
 /// Import the MediaPipe Vision module.
-Future<MediaPipeVisionModuleJs> importMediapipeVisionModule() async {
-  var module = await importModule(_mediapipeModule.toJS).toDart;
+Future<MediaPipeVisionModuleJs> importMediapipeVisionModule(
+    {Version? version}) async {
+  version ??= mediaPipeLatestVersion;
+  var module =
+      await importModule(_mediapipeModuleBase.withVersion(version).toJS).toDart;
   return MediaPipeVisionModuleJs(module);
 }
 
