@@ -1,0 +1,25 @@
+name: tekartik_mediapipe_js
+description: Media pipe experimental js bindings
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.5.0
+
+# Add regular dependencies here.
+dependencies:
+  web: '>=1.0.0'
+  tekartik_js_utils_interop:
+    git:
+      url: https://github.com/tekartik/js_utils.dart
+      ref: dart3a
+      path: js_utils_interop
+  tekartik_common_utils:
+    git:
+      url: https://github.com/tekartik/common_utils.dart
+      ref: dart3a
+  # path: ^1.8.0
+
+dev_dependencies:
+  lints: ">=5.0.0"
+  test: ">=1.24.0"
