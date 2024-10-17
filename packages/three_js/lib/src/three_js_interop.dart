@@ -149,9 +149,12 @@ extension BoxGeometryProtoJsExt on BoxGeometryProtoJs {
       width.toJS,
       height.toJS,
       depth.toJS,
-      widthSegments?.toJS,
-      heightSegments?.toJS,
-      depthSegments?.toJS
+      if (widthSegments != null) widthSegments.toJS,
+      if (widthSegments != null && heightSegments != null) heightSegments.toJS,
+      if (widthSegments != null &&
+          heightSegments != null &&
+          depthSegments != null)
+        depthSegments.toJS
     ]);
   }
 }
@@ -189,6 +192,11 @@ extension type MeshBasicMaterialParametersJs._(JSObject _) implements JSObject {
   });
 }
 
+extension MeshBasicMaterialParametersJsExt on MeshBasicMaterialParametersJs {
+  external JSAny? /*Color|String|num*/ get color;
+
+  external set color(JSAny? /*Color|String|num*/ v);
+}
 //
 // Object3D
 //
@@ -332,7 +340,7 @@ extension type WebGLRendererJs._(JSObject _) implements JSObject {
 
 extension WebGLRendererJsExt on WebGLRendererJs {
   external void setSize(num width, num height, [bool updateStyle]);
-  external web.Element get domElement;
+  external web.HTMLElement get domElement;
 
   /// Set size
   external void render(SceneJs scene, CameraJs camera);
