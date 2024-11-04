@@ -3,6 +3,7 @@ import 'package:tekartik_app_web_build/app_build.dart';
 import 'package:tekartik_web_publish/surge_web_publish.dart';
 import 'package:tekartik_web_publish/web_publish.dart';
 import 'build.dart';
+import 'build_common.dart';
 
 /// New builder helper
 class WebAppBuilder implements CommonAppBuilder {
@@ -11,6 +12,7 @@ class WebAppBuilder implements CommonAppBuilder {
   String get path => options.packageTop;
 
   /// Options
+  /// @Deprecated('use WebAppBuildOptions')
   late final WebAppOptions options;
 
   /// Constructor.
@@ -32,6 +34,18 @@ class WebAppBuilder implements CommonAppBuilder {
   Future<void> serve() async {
     await webdevServe(path, folder: options.srcDir, port: options.webPort);
   }
+}
+
+/// New builder helper
+abstract class DefaultWebAppBuilder implements CommonWebAppBuilder {
+  /// Constructor.
+  factory DefaultWebAppBuilder({WebAppBuildOptions? buildOptions}) =>
+      _DefaultWebAppBuilder(
+          options: WebAppLocalOptions(buildOptions: buildOptions));
+}
+
+class _DefaultWebAppBuilder extends WebAppLocalBuilder {
+  _DefaultWebAppBuilder({required super.options});
 }
 
 /// Surge web app options

@@ -19,6 +19,7 @@ export 'src/web_app_builder.dart'
     show
         WebAppBuilder,
         FirebaseWebAppBuilder,
+        DefaultWebAppBuilder,
         SurgeWebAppBuilder,
         SurgeWebAppOptions,
         CommonWebAppBuilder;

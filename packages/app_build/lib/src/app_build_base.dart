@@ -12,16 +12,16 @@ import 'import.dart';
 Future<void> webdevBuild(String dir,
     {String? folder = webAppSrcDirDefault}) async {
   folder ??= 'web';
-  var shell = Shell(workingDirectory: dir);
   await webdevReady();
+  var shell = Shell(workingDirectory: dir);
   await shell.run('webdev build --output $folder:${join('build', folder)}');
 }
 
 /// dir is the project dir, folder is the top level folder
 Future<void> webdevServe(String dir,
     {String folder = webAppSrcDirDefault, int? port}) async {
-  var shell = Shell(workingDirectory: dir);
   await webdevReady();
+  var shell = Shell(workingDirectory: dir);
   await shell.run(
       'webdev serve $folder${port == null ? '' : ':$port'} --auto refresh');
 }

@@ -5,17 +5,20 @@ Future main(List<String> arguments) async {
   mainMenuConsole(arguments, () => menuWebAppContent());
 }
 
-void menuWebAppContent({WebAppOptions? options}) {
-  var builder = WebAppBuilder(options: options);
+void menuWebAppContent({WebAppOptions? options, WebAppBuilder? builder}) {
+  var localBuilder = builder ?? WebAppBuilder(options: options);
   menu('web_app_builder', () {
     item('build', () async {
-      await builder.build();
+      await localBuilder.build();
     });
     item('serve', () async {
-      await builder.serve();
+      await localBuilder.serve();
     });
     item('clean', () async {
-      await builder.clean();
+      await localBuilder.clean();
+    });
+    item('pre-deploy', () async {
+      await localBuilder.build();
     });
   });
 }
