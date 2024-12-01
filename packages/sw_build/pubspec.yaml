@@ -9,13 +9,17 @@ environment:
 dependencies:
   tekartik_sw_utils:
     git:
-      url: git@github.com/tekartik/app_web_utils.dart
+      url: https://github.com/tekartik/app_web_utils.dart
       ref: dart3a
       path: packages/sw_utils
     version: '>=0.1.0'
   crypto:
   process_run:
   path:
+  tekartik_common_utils:
+    git:
+      url: https://github.com/tekartik/common_utils.dart
+      ref: dart3a
 dev_dependencies:
   test: ">=1.24.0"
   tekartik_app_web_build:
