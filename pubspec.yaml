@@ -1,0 +1,13 @@
+name: _
+publish_to: none
+environment:
+  sdk: ^3.6.0
+workspace:
+  - packages/app_build
+  - packages/app_build_menu
+  - packages/mediapipe_js
+  - packages/sw_build
+  - packages/sw_utils
+  - packages/three_js
+  - packages/web_splash
+  - repo_support

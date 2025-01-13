@@ -8,9 +8,10 @@ environment:
 
 dev_dependencies:
   test: ">=1.24.0"
-  dev_build: '>=0.13.4-dev.1'
+  dev_build: ">=1.1.0+2"
   lints: ">=5.0.0"
 
 dependency_overrides:
+resolution: workspace
 #  tekartik_build_utils:
 #    path: ../../../tekartik/build_utils.dart

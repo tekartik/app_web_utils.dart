@@ -13,10 +13,10 @@ dependencies:
       ref: dart3a
     version: '>=0.6.2'
   crypto:
-  process_run:
-  dev_build:
-  fs_shim:
-  path:
+  process_run: ">=1.2.1+1"
+  dev_build: ">=1.1.0+2"
+  fs_shim: ">=2.3.3+1"
+  path: ">=1.9.0"
   tekartik_firebase_build:
     git:
       url: https://github.com/tekartik/app_build.dart
@@ -42,10 +42,8 @@ dev_dependencies:
     version: '>=0.1.0'
 
 dependency_overrides:
-  tekartik_sw_build:
-    path: ../sw_build
-  tekartik_sw_utils:
-    path: ../sw_utils
+
+resolution: workspace
   # Tmp
   # tekartik_web_publish:
   #  path: ../../../app_build.dart/packages/web_publish

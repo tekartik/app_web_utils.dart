@@ -14,8 +14,8 @@ dependencies:
       path: packages/sw_utils
     version: '>=0.1.0'
   crypto:
-  process_run:
-  path:
+  process_run: ">=1.2.1+1"
+  path: ">=1.9.0"
   tekartik_common_utils:
     git:
       url: https://github.com/tekartik/common_utils.dart
@@ -24,9 +24,9 @@ dev_dependencies:
   test: ">=1.24.0"
   tekartik_app_web_build:
     path: ../app_build
-  build_runner:
-  build_web_compilers:
+  build_runner: ">=2.4.13"
+  build_web_compilers: ">=4.0.11"
 
 dependency_overrides:
-  tekartik_sw_utils:
-    path: ../sw_utils
+
+resolution: workspace

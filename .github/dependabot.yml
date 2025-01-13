@@ -2,7 +2,45 @@
 # See https://docs.github.com/en/code-security/dependabot/dependabot-version-updates
 version: 2
 
+enable-beta-ecosystems: true
+
 updates:
+  - package-ecosystem: "pub"
+    directory: "."
+    schedule:
+      interval: "monthly"
+  - package-ecosystem: "pub"
+    directory: "packages/app_build"
+    schedule:
+      interval: "monthly"
+  - package-ecosystem: "pub"
+    directory: "packages/app_build_menu"
+    schedule:
+      interval: "monthly"
+  - package-ecosystem: "pub"
+    directory: "packages/mediapipe_js"
+    schedule:
+      interval: "monthly"
+  - package-ecosystem: "pub"
+    directory: "packages/sw_build"
+    schedule:
+      interval: "monthly"
+  - package-ecosystem: "pub"
+    directory: "packages/sw_utils"
+    schedule:
+      interval: "monthly"
+  - package-ecosystem: "pub"
+    directory: "packages/three_js"
+    schedule:
+      interval: "monthly"
+  - package-ecosystem: "pub"
+    directory: "packages/web_splash"
+    schedule:
+      interval: "monthly"
+  - package-ecosystem: "pub"
+    directory: "repo_support"
+    schedule:
+      interval: "monthly"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
