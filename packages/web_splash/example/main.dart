@@ -9,7 +9,7 @@ Future<void> main() async {
 
   webSplashHide();
 
-  web.document.body!.querySelector('#output')!.text = '''
+  web.document.body!.querySelector('#output')!.textContent = '''
     ${web.window.location.href}''';
 
   // Call twice for testing

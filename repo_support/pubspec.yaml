@@ -4,11 +4,11 @@ publish_to: none
 deploy_to: none
 
 environment:
-  sdk: ^3.5.0
+  sdk: ^3.6.0
 
 dev_dependencies:
   test: ">=1.24.0"
-  dev_build: ">=1.1.0+2"
+  dev_build: ">=1.1.2"
   lints: ">=5.0.0"
 
 dependency_overrides:
