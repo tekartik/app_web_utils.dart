@@ -9,8 +9,10 @@ import 'build_common.dart';
 import 'import.dart';
 
 /// dir is the project dir, folder is the top level folder, default to 'web';
-Future<void> webdevBuild(String dir,
-    {String? folder = webAppSrcDirDefault}) async {
+Future<void> webdevBuild(
+  String dir, {
+  String? folder = webAppSrcDirDefault,
+}) async {
   folder ??= 'web';
   await webdevReady();
   var shell = Shell(workingDirectory: dir);
@@ -18,12 +20,16 @@ Future<void> webdevBuild(String dir,
 }
 
 /// dir is the project dir, folder is the top level folder
-Future<void> webdevServe(String dir,
-    {String folder = webAppSrcDirDefault, int? port}) async {
+Future<void> webdevServe(
+  String dir, {
+  String folder = webAppSrcDirDefault,
+  int? port,
+}) async {
   await webdevReady();
   var shell = Shell(workingDirectory: dir);
   await shell.run(
-      'webdev serve $folder${port == null ? '' : ':$port'} --auto refresh');
+    'webdev serve $folder${port == null ? '' : ':$port'} --auto refresh',
+  );
 }
 
 /// path is the project dir
@@ -48,8 +54,11 @@ Future<void> webdevClean(String path, {String folder = 'web'}) async {
 }
 
 /// Deploy dir default to 'deploy/web, folder is relative to the build folder
-Future<void> buildToDeploy(String dir,
-    {String folder = 'web', String? deployDir}) async {
+Future<void> buildToDeploy(
+  String dir, {
+  String folder = 'web',
+  String? deployDir,
+}) async {
   var buildFolder = join(dir, 'build', folder);
   deployDir ??= join(dir, 'deploy', folder);
 
@@ -58,19 +67,24 @@ Future<void> buildToDeploy(String dir,
     throw StateError('Missing deploy.yaml file ($deployFile)');
   }
   await fsDeploy(
-      options: FsDeployOptions()..noSymLink = true,
-      yaml: deployFile,
-      src: Directory(buildFolder),
-      dst: Directory(deployDir));
+    options: FsDeployOptions()..noSymLink = true,
+    yaml: deployFile,
+    src: Directory(buildFolder),
+    dst: Directory(deployDir),
+  );
 }
 
 /// Serve release build using dhttpd
-Future<void> httpDeployServe(String dir,
-    {String? deployDir, String folder = 'web'}) async {
+Future<void> httpDeployServe(
+  String dir, {
+  String? deployDir,
+  String folder = 'web',
+}) async {
   await checkAndActivatePackage('dhttpd');
   deployDir ??= join(dir, 'deploy', folder);
   var shell = Shell(workingDirectory: dir);
   print('http://localhost:8080');
-  await shell
-      .run('dart pub global run dhttpd --path ${shellArgument(deployDir)}');
+  await shell.run(
+    'dart pub global run dhttpd --path ${shellArgument(deployDir)}',
+  );
 }

@@ -15,8 +15,9 @@ Future<void> dhttpdReady({bool verbose = false, bool force = false}) async {
     await _dhttpdReadyLock.synchronized(() async {
       if (!_dhttpdReady) {
         // Set alias
-        shellEnvironment = ShellEnvironment()
-          ..aliases['dhttpd'] = 'dart pub global run dhttpd';
+        shellEnvironment =
+            ShellEnvironment()
+              ..aliases['dhttpd'] = 'dart pub global run dhttpd';
       }
       await _checkAndActivateDhttp(force: force, verbose: verbose);
       _dhttpdReady = true;
@@ -24,8 +25,10 @@ Future<void> dhttpdReady({bool verbose = false, bool force = false}) async {
   }
 }
 
-Future<void> _checkAndActivateDhttp(
-    {bool force = false, bool verbose = false}) async {
+Future<void> _checkAndActivateDhttp({
+  bool force = false,
+  bool verbose = false,
+}) async {
   if (force) {
     await _activateDhttp(verbose: verbose);
   } else {

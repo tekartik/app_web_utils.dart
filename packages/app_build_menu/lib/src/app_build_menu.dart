@@ -24,8 +24,9 @@ void menuWebAppContent({WebAppOptions? options, WebAppBuilder? builder}) {
 }
 
 /// Compat
-void menuFirebaseWebAppContent(
-    {required List<FirebaseWebAppBuilder> builders}) {
+void menuFirebaseWebAppContent({
+  required List<FirebaseWebAppBuilder> builders,
+}) {
   for (var builder in builders) {
     menu('target ${builder.target}', () {
       menuFirebaseWebAppBuilderContent(builder: builder);
@@ -42,8 +43,9 @@ void menuCommonWebAppContent({required List<CommonWebAppBuilder> builders}) {
 }
 
 /// Compat
-void menuFirebaseWebAppBuilderContent(
-    {required FirebaseWebAppBuilder builder}) {
+void menuFirebaseWebAppBuilderContent({
+  required FirebaseWebAppBuilder builder,
+}) {
   menuCommonWebAppBuilderContent(builder: builder);
 }
 

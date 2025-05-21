@@ -25,9 +25,12 @@ void menuAppContent({String path = '.'}) {
     });
 
     item('list sub projects', () async {
-      await recursivePackagesRun([path], action: (path) {
-        write('project: ${absolute(path)}');
-      });
+      await recursivePackagesRun(
+        [path],
+        action: (path) {
+          write('project: ${absolute(path)}');
+        },
+      );
     });
 
     item('run_ci', () async {
@@ -38,8 +41,10 @@ void menuAppContent({String path = '.'}) {
       await packageRunCi(path, options: PackageRunCiOptions(pubGetOnly: true));
     });
     item('pub_upgrade', () async {
-      await packageRunCi(path,
-          options: PackageRunCiOptions(pubUpgradeOnly: true));
+      await packageRunCi(
+        path,
+        options: PackageRunCiOptions(pubUpgradeOnly: true),
+      );
     });
   });
 }

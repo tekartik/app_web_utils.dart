@@ -21,11 +21,11 @@ extension MediaPipeVisionModuleJsExt on MediaPipeVisionModuleJs {
 extension type TexImageSourceJs._(JSObject _) implements JSObject {
   /// From an image element
   TexImageSourceJs.fromImageElement(web.HTMLImageElement imageElement)
-      : this._(imageElement);
+    : this._(imageElement);
 
   /// From a video element
   TexImageSourceJs.fromVideoElement(web.HTMLVideoElement videoElement)
-      : this._(videoElement);
+    : this._(videoElement);
 }
 
 /// https://ai.google.dev/edge/api/mediapipe/js/tasks-vision.facelandmarker
@@ -45,7 +45,9 @@ extension FaceLandmarkerJsExt on FaceLandmarkerJs {
   /// Performs face landmarks detection on the provided video frame and waits synchronously for the response. Only use this method when the FaceLandmarker is created with running mode video.
   @JS('detectForVideo')
   external FaceLandmarkerResultJs detectForVideo(
-      TexImageSourceJs inputVideo, double timestamp);
+    TexImageSourceJs inputVideo,
+    double timestamp,
+  );
 }
 
 /// FaceLandmarkerProtoJs
@@ -56,12 +58,15 @@ extension FaceLandmarkerProtoJsExt on FaceLandmarkerProtoJs {
   /// Initializes the Wasm runtime and creates a new FaceLandmarker from the provided options.
   @JS('createFromOptions')
   external JSPromise<FaceLandmarkerJs> _createFromOptions(
-      MpvFilesetJs wasmFileset, FaceLandmarkerOptionsJs faceLandmarkerOptions);
+    MpvFilesetJs wasmFileset,
+    FaceLandmarkerOptionsJs faceLandmarkerOptions,
+  );
 
   /// Initializes the Wasm runtime and creates a new FaceLandmarker from the provided options.
-  Future<FaceLandmarkerJs> createFromOptions(MpvFilesetJs wasmFileset,
-          FaceLandmarkerOptionsJs faceLandmarkerOptions) =>
-      _createFromOptions(wasmFileset, faceLandmarkerOptions).toDart;
+  Future<FaceLandmarkerJs> createFromOptions(
+    MpvFilesetJs wasmFileset,
+    FaceLandmarkerOptionsJs faceLandmarkerOptions,
+  ) => _createFromOptions(wasmFileset, faceLandmarkerOptions).toDart;
 }
 
 /// delegate to Gpu
@@ -80,12 +85,13 @@ const optionsFaceLandmarkerModelAssetPath =
 /// Options for the FaceLandmarker.
 extension type FaceLandmarkerOptionsJs._(JSObject _) implements JSObject {
   /// Creates a new FaceLandmarkerOptions.
-  external FaceLandmarkerOptionsJs(
-      {int numFaces,
-      FaceLandmarkerBaseOptionsJs baseOptions,
-      bool outputFaceBlendshapes,
-      bool outputFacialTransformationMatrixes,
-      String runningMode});
+  external FaceLandmarkerOptionsJs({
+    int numFaces,
+    FaceLandmarkerBaseOptionsJs baseOptions,
+    bool outputFaceBlendshapes,
+    bool outputFacialTransformationMatrixes,
+    String runningMode,
+  });
 }
 
 /// FaceLandmarkerOptionsJs ext
@@ -97,8 +103,10 @@ extension FaceLandmarkerOptionsJsExt on FaceLandmarkerOptionsJs {
 /// Base Options for the FaceLandmarker.
 extension type FaceLandmarkerBaseOptionsJs._(JSObject _) implements JSObject {
   /// Creates a new FaceLandmarkerBaseOptions.
-  external FaceLandmarkerBaseOptionsJs(
-      {String modelAssetPath, String delegate});
+  external FaceLandmarkerBaseOptionsJs({
+    String modelAssetPath,
+    String delegate,
+  });
 }
 
 /// Resolves the files required for the MediaPipe Task APIs.
@@ -136,8 +144,9 @@ const _mediaPipeVisionBaseUrl =
 final mediaPipeLatestVersion = Version(0, 10, 17);
 
 /// Import the MediaPipe Vision module.
-Future<MediaPipeVisionModuleJs> importMediapipeVisionModule(
-    {Version? version}) async {
+Future<MediaPipeVisionModuleJs> importMediapipeVisionModule({
+  Version? version,
+}) async {
   version ??= mediaPipeLatestVersion;
   var module =
       await importModule(_mediapipeModuleBase.withVersion(version).toJS).toDart;

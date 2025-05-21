@@ -41,9 +41,11 @@ class WebAppLocalBuilder
   @override
   Future<void> build() async {
     await webAppBuilder.build();
-    await webAppBuildToDeploy(path,
-        deployDir: buildOptions.deployDir,
-        buildDir: join('build', buildOptions.srcDir));
+    await webAppBuildToDeploy(
+      path,
+      deployDir: buildOptions.deployDir,
+      buildDir: join('build', buildOptions.srcDir),
+    );
   }
 
   @override
@@ -52,8 +54,9 @@ class WebAppLocalBuilder
   }
 
   @override
-  Future<void> serveDeployed(
-      {FirebaseWebAppActionController? controller}) async {
+  Future<void> serveDeployed({
+    FirebaseWebAppActionController? controller,
+  }) async {
     await httpDeployServe(path, deployDir: deployDir);
   }
 
@@ -84,8 +87,12 @@ class WebAppBuildOptions {
   final int? webPort;
 
   /// Constructor.
-  WebAppBuildOptions(
-      {String? packageTop, String? deployDir, String? srcDir, this.webPort}) {
+  WebAppBuildOptions({
+    String? packageTop,
+    String? deployDir,
+    String? srcDir,
+    this.webPort,
+  }) {
     this.packageTop = packageTop ?? '.';
     this.deployDir = deployDir ?? webAppDeployDirDefault;
     this.srcDir = srcDir ?? webAppSrcDirDefault;
@@ -101,6 +108,8 @@ class FirebaseWebAppOptions {
   final FirebaseDeployOptions deployOptions;
 
   /// Constructor.
-  FirebaseWebAppOptions(
-      {required this.buildOptions, required this.deployOptions});
+  FirebaseWebAppOptions({
+    required this.buildOptions,
+    required this.deployOptions,
+  });
 }

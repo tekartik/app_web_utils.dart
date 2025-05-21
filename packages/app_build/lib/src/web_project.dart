@@ -7,13 +7,15 @@ class WebProject {
   late final String path;
 
   /// windows/posix path ok
-  WebProject(String path,
-      {
-      /// Default to empty
-      List<String>? flavors,
-      String? buildPlatform,
-      String? androidModule,
-      String? buildType}) {
+  WebProject(
+    String path, {
+
+    /// Default to empty
+    List<String>? flavors,
+    String? buildPlatform,
+    String? androidModule,
+    String? buildType,
+  }) {
     this.path = toNativePath(path);
   }
 

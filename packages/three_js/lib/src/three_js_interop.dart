@@ -55,8 +55,10 @@ ThreeModuleJs get _threeJsModule => _threeJsModuleOrNull!;
 ThreeModuleJs? _threeJsModuleOrNull;
 
 /// Import the three js module.
-Future<ThreeModuleJs> importThreeJsModule(
-    {Version? version, bool createImportMap = false}) async {
+Future<ThreeModuleJs> importThreeJsModule({
+  Version? version,
+  bool createImportMap = false,
+}) async {
   if (_threeJsModuleOrNull != null) {
     return _threeJsModule;
   }
@@ -83,8 +85,8 @@ Future<void> createThreeJsImportMap({Version? version}) async {
   }
   _importMapDone = true;
   var importMap = newModel();
-  importMap['imports'] = newModel()
-    ..addAll(getThreeJsImports(version: version));
+  importMap['imports'] =
+      newModel()..addAll(getThreeJsImports(version: version));
 
   final completer = Completer<void>.sync();
   var script = web.HTMLScriptElement();
@@ -116,8 +118,9 @@ Future<GLTFLoaderModuleJs> importGLTFLoaderJsModule({Version? version}) async {
 Future<FBXLoaderModuleJs> importFBXLoaderJsModule({Version? version}) async {
   version ??= threeJsLatestVersion;
   var module =
-      await importModule(_fbxLocalerJsModuleBase.withVersion(version).toJS)
-          .toDart;
+      await importModule(
+        _fbxLocalerJsModuleBase.withVersion(version).toJS,
+      ).toDart;
   return FBXLoaderModuleJs._(module);
 }
 
@@ -134,17 +137,34 @@ extension WebGLRendererProtoJsExt on WebGLRendererProtoJs {
 
 extension type BufferGeometryJs._(JSObject _) implements JSObject {}
 extension type BoxGeometryJs._(JSObject _) implements BufferGeometryJs {
-  factory BoxGeometryJs(num width, num height, num depth,
-          [num? widthSegments, num? heightSegments, num? depthSegments]) =>
-      _threeJsModule.boxGeometryProto.create(
-          width, height, depth, widthSegments, heightSegments, depthSegments);
+  factory BoxGeometryJs(
+    num width,
+    num height,
+    num depth, [
+    num? widthSegments,
+    num? heightSegments,
+    num? depthSegments,
+  ]) => _threeJsModule.boxGeometryProto.create(
+    width,
+    height,
+    depth,
+    widthSegments,
+    heightSegments,
+    depthSegments,
+  );
 }
 extension type BoxGeometryProtoJs._(JSObject _) implements JSObject {}
 
 extension BoxGeometryProtoJsExt on BoxGeometryProtoJs {
   /// Create renderer
-  BoxGeometryJs create(num width, num height, num depth,
-      [num? widthSegments, num? heightSegments, num? depthSegments]) {
+  BoxGeometryJs create(
+    num width,
+    num height,
+    num depth, [
+    num? widthSegments,
+    num? heightSegments,
+    num? depthSegments,
+  ]) {
     return (this as JSFunction).callAsConstructorVarArgs([
       width.toJS,
       height.toJS,
@@ -154,7 +174,7 @@ extension BoxGeometryProtoJsExt on BoxGeometryProtoJs {
       if (widthSegments != null &&
           heightSegments != null &&
           depthSegments != null)
-        depthSegments.toJS
+        depthSegments.toJS,
     ]);
   }
 }
@@ -187,9 +207,7 @@ extension MeshBasicMaterialProtoJsExt on MeshBasicMaterialProtoJs {
 
 extension type MeshBasicMaterialParametersJs._(JSObject _) implements JSObject {
   /// Constructor
-  external MeshBasicMaterialParametersJs({
-    int color,
-  });
+  external MeshBasicMaterialParametersJs({int color});
 }
 
 extension MeshBasicMaterialParametersJsExt on MeshBasicMaterialParametersJs {
@@ -229,9 +247,7 @@ extension SceneProtoJsExt on SceneProtoJs {
 
 extension type SceneParametersJs._(JSObject _) implements JSObject {
   /// Constructor
-  external SceneParametersJs({
-    int color,
-  });
+  external SceneParametersJs({int color});
 }
 
 // Camera
@@ -251,32 +267,43 @@ extension type PerspectiveCameraJs._(JSObject _) implements CameraJs {
   /// Camera frustum near plane. Default is 0.1.
   ///
   factory PerspectiveCameraJs(
-          double fov, double aspect, double near, double far) =>
-      _threeJsModule.perspectiveCameraProto.create(fov, aspect, near, far);
+    double fov,
+    double aspect,
+    double near,
+    double far,
+  ) => _threeJsModule.perspectiveCameraProto.create(fov, aspect, near, far);
 }
 extension type PerspectiveCameraProtoJs._(JSObject _) implements JSObject {}
 
 extension PerspectiveCameraProtoJsExt on PerspectiveCameraProtoJs {
   /// Create renderer
   PerspectiveCameraJs create(
-          double fov, double aspect, double near, double far) =>
-      (this as JSFunction)
-          .callAsConstructor(fov.toJS, aspect.toJS, near.toJS, far.toJS);
+    double fov,
+    double aspect,
+    double near,
+    double far,
+  ) => (this as JSFunction).callAsConstructor(
+    fov.toJS,
+    aspect.toJS,
+    near.toJS,
+    far.toJS,
+  );
 }
 
 extension type PerspectiveCameraParametersJs._(JSObject _) implements JSObject {
   /// Constructor
-  external PerspectiveCameraParametersJs({
-    int color,
-  });
+  external PerspectiveCameraParametersJs({int color});
 }
 
 // Vector 3
 extension type VectorJs._(JSObject _) implements JSObject {}
 extension type Vector3Js._(JSObject _) implements JSObject {
   factory Vector3Js(num x, num y, num z) =>
-      (_threeJsModule['Vector3'] as JSFunction)
-          .callAsConstructor(x.toJS, y.toJS, z.toJS);
+      (_threeJsModule['Vector3'] as JSFunction).callAsConstructor(
+        x.toJS,
+        y.toJS,
+        z.toJS,
+      );
 }
 
 extension Vector3JsExt on Vector3Js {
@@ -297,8 +324,12 @@ extension Vector3JsExt on Vector3Js {
 
 extension type EulerJs._(JSObject _) implements JSObject {
   factory EulerJs(num x, num y, num z, [String? order]) =>
-      (_threeJsModule['Euler'] as JSFunction)
-          .callAsConstructor(x.toJS, y.toJS, z.toJS, order?.toJS);
+      (_threeJsModule['Euler'] as JSFunction).callAsConstructor(
+        x.toJS,
+        y.toJS,
+        z.toJS,
+        order?.toJS,
+      );
 }
 
 extension EulerJsExt on EulerJs {
@@ -324,12 +355,13 @@ extension EulerJsExt on EulerJs {
 /// https://threejs.org/docs/#api/en/renderers/WebGLRenderer
 extension type WebGLRendererParametersJs._(JSObject _) implements JSObject {
   /// Constructor
-  external WebGLRendererParametersJs(
-      {web.HTMLCanvasElement canvas,
-      // default false
-      bool alpha,
-      // default false
-      bool antialias});
+  external WebGLRendererParametersJs({
+    web.HTMLCanvasElement canvas,
+    // default false
+    bool alpha,
+    // default false
+    bool antialias,
+  });
 }
 
 /// WebGLRenderer

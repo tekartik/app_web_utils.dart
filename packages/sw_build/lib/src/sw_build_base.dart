@@ -27,7 +27,9 @@ Future<void> generateWebAppServiceWorker(String dir) async {
 /// invalidation will automatically reactivate workers whenever a new
 /// version is deployed.
 String generateServiceWorker(
-    Map<String, String> resources, List<String> coreBundle) {
+  Map<String, String> resources,
+  List<String> coreBundle,
+) {
   return '''
 'use strict';
 const MANIFEST = 'tekartik-app-manifest';

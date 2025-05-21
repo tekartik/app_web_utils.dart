@@ -15,17 +15,23 @@ Future<void> main() async {
   try {
     final scene = SceneJs();
     var camera = PerspectiveCameraJs(
-        75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000,
+    );
 
     final renderer = WebGLRendererJs(
-        WebGLRendererParametersJs(alpha: true, antialias: true));
+      WebGLRendererParametersJs(alpha: true, antialias: true),
+    );
     renderer.setSize(window.innerWidth, window.innerHeight);
     web.document.body!.append(renderer.domElement);
 
     final geometry = BoxGeometryJs(1, 1, 1.3);
 
-    final material =
-        MeshBasicMaterialJs(MeshBasicMaterialParametersJs(color: 0x00ff00));
+    final material = MeshBasicMaterialJs(
+      MeshBasicMaterialParametersJs(color: 0x00ff00),
+    );
 
     final cube = MeshJs(geometry, material);
     scene.add(cube);

@@ -24,8 +24,12 @@ void wbm(List<String> arguments) {
   }
   mainMenuConsole(appPath.sublist(1), () {
     menuWebAppContent(
-        options: WebAppOptions(
-            packageTop: appPath.first, srcDir: srcDir, webPort: webPort));
+      options: WebAppOptions(
+        packageTop: appPath.first,
+        srcDir: srcDir,
+        webPort: webPort,
+      ),
+    );
     menuAppContent(path: appPath.first);
   });
 }

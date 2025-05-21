@@ -17,11 +17,14 @@ extension _DirectoryExt on Directory {
 }
 
 /// Generate a dart project
-Future<void> generateDartProject(
-    {required String template, required String path}) async {
+Future<void> generateDartProject({
+  required String template,
+  required String path,
+}) async {
   await Directory(path).prepare();
 
   var shell = Shell().cd(dirname(path));
-  await shell
-      .run('dart create --template $template ${shellArgument(basename(path))}');
+  await shell.run(
+    'dart create --template $template ${shellArgument(basename(path))}',
+  );
 }

@@ -41,7 +41,8 @@ abstract class DefaultWebAppBuilder implements CommonWebAppBuilder {
   /// Constructor.
   factory DefaultWebAppBuilder({WebAppBuildOptions? buildOptions}) =>
       _DefaultWebAppBuilder(
-          options: WebAppLocalOptions(buildOptions: buildOptions));
+        options: WebAppLocalOptions(buildOptions: buildOptions),
+      );
 }
 
 class _DefaultWebAppBuilder extends WebAppLocalBuilder {
@@ -67,17 +68,21 @@ class SurgeWebAppBuilder
   /// Options
   final SurgeWebAppOptions options;
 
-  late final _surgeWebAppDeployer =
-      SurgeWebAppDeployer(options: options.deployOptions, path: deployDir);
+  late final _surgeWebAppDeployer = SurgeWebAppDeployer(
+    options: options.deployOptions,
+    path: deployDir,
+  );
 
   /// Constructor.
   SurgeWebAppBuilder({required this.options});
   @override
   Future<void> build() async {
     await webAppBuilder.build();
-    await webAppBuildToDeploy(path,
-        deployDir: options.buildOptions.deployDir,
-        buildDir: join('build', options.buildOptions.srcDir));
+    await webAppBuildToDeploy(
+      path,
+      deployDir: options.buildOptions.deployDir,
+      buildDir: join('build', options.buildOptions.srcDir),
+    );
   }
 
   @override
@@ -86,8 +91,9 @@ class SurgeWebAppBuilder
   }
 
   @override
-  Future<void> serveDeployed(
-      {FirebaseWebAppActionController? controller}) async {
+  Future<void> serveDeployed({
+    FirebaseWebAppActionController? controller,
+  }) async {
     await httpDeployServe(path, deployDir: deployDir);
   }
 
@@ -188,23 +194,34 @@ class FirebaseWebAppBuilder
   @override
   Future<void> build() async {
     await webAppBuilder.build();
-    await firebaseWebAppBuildToDeploy(path,
-        deployDir: options.buildOptions.deployDir);
+    await firebaseWebAppBuildToDeploy(
+      path,
+      deployDir: options.buildOptions.deployDir,
+    );
   }
 
   /// Deploy
   @override
   Future<void> deploy({FirebaseWebAppActionController? controller}) async {
-    await firebaseWebAppDeploy(path, options.deployOptions,
-        deployDir: options.buildOptions.deployDir, controller: controller);
+    await firebaseWebAppDeploy(
+      path,
+      options.deployOptions,
+      deployDir: options.buildOptions.deployDir,
+      controller: controller,
+    );
   }
 
   /// Deploy
   @override
-  Future<void> serveDeployed(
-      {FirebaseWebAppActionController? controller}) async {
-    await firebaseWebAppServe(path, options.deployOptions,
-        deployDir: options.buildOptions.deployDir, controller: controller);
+  Future<void> serveDeployed({
+    FirebaseWebAppActionController? controller,
+  }) async {
+    await firebaseWebAppServe(
+      path,
+      options.deployOptions,
+      deployDir: options.buildOptions.deployDir,
+      controller: controller,
+    );
   }
 
   @override
