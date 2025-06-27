@@ -15,9 +15,8 @@ Future<void> webdevReady({bool verbose = false, bool force = false}) async {
     await _webdevReadyLock.synchronized(() async {
       if (!_webdevReady) {
         // Set alias
-        shellEnvironment =
-            ShellEnvironment()
-              ..aliases['webdev'] = 'dart pub global run webdev';
+        shellEnvironment = ShellEnvironment()
+          ..aliases['webdev'] = 'dart pub global run webdev';
       }
       await checkAndActivateWebdev();
       _webdevReady = true;

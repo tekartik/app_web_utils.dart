@@ -148,8 +148,9 @@ Future<MediaPipeVisionModuleJs> importMediapipeVisionModule({
   Version? version,
 }) async {
   version ??= mediaPipeLatestVersion;
-  var module =
-      await importModule(_mediapipeModuleBase.withVersion(version).toJS).toDart;
+  var module = await importModule(
+    _mediapipeModuleBase.withVersion(version).toJS,
+  ).toDart;
   return MediaPipeVisionModuleJs(module);
 }
 

@@ -8,10 +8,9 @@ import 'package:web/web.dart' as web;
 void main() {
   test('show/hide', () async {
     var body = web.document.body!;
-    var element =
-        web.HTMLDivElement()
-          ..id = 'app_splash'
-          ..className = 'app-loading';
+    var element = web.HTMLDivElement()
+      ..id = 'app_splash'
+      ..className = 'app-loading';
     body.appendChild(element);
     expect(body.contains(element), isTrue);
     element = web.document.getElementById('app_splash') as web.HTMLDivElement;

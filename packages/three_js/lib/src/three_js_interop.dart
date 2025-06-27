@@ -66,8 +66,9 @@ Future<ThreeModuleJs> importThreeJsModule({
   if (createImportMap) {
     await createThreeJsImportMap(version: version);
   }
-  var module =
-      await importModule(_threeJsModuleBase.withVersion(version).toJS).toDart;
+  var module = await importModule(
+    _threeJsModuleBase.withVersion(version).toJS,
+  ).toDart;
 
   /// Create importmaps dynamically
   return _threeJsModuleOrNull = ThreeModuleJs._(module);
@@ -85,8 +86,8 @@ Future<void> createThreeJsImportMap({Version? version}) async {
   }
   _importMapDone = true;
   var importMap = newModel();
-  importMap['imports'] =
-      newModel()..addAll(getThreeJsImports(version: version));
+  importMap['imports'] = newModel()
+    ..addAll(getThreeJsImports(version: version));
 
   final completer = Completer<void>.sync();
   var script = web.HTMLScriptElement();
@@ -117,10 +118,9 @@ Future<GLTFLoaderModuleJs> importGLTFLoaderJsModule({Version? version}) async {
 
 Future<FBXLoaderModuleJs> importFBXLoaderJsModule({Version? version}) async {
   version ??= threeJsLatestVersion;
-  var module =
-      await importModule(
-        _fbxLocalerJsModuleBase.withVersion(version).toJS,
-      ).toDart;
+  var module = await importModule(
+    _fbxLocalerJsModuleBase.withVersion(version).toJS,
+  ).toDart;
   return FBXLoaderModuleJs._(module);
 }
 
