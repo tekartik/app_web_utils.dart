@@ -10,7 +10,6 @@ dependencies:
   tekartik_deploy:
     git:
       url: https://github.com/tekartik/deploy.dart
-      ref: dart3a
     version: '>=0.6.2'
   crypto:
   process_run: ">=1.2.1+1"
@@ -20,24 +19,20 @@ dependencies:
   tekartik_firebase_build:
     git:
       url: https://github.com/tekartik/app_build.dart
-      ref: dart3a
       path: packages/firebase_build
   tekartik_web_publish:
     git:
       url: https://github.com/tekartik/app_build.dart
-      ref: dart3a
       path: packages/web_publish
   tekartik_common_build:
     git:
       url: https://github.com/tekartik/app_build.dart
-      ref: dart3a
       path: packages/common_build
 dev_dependencies:
   test: ">=1.24.0"
   tekartik_sw_build:
     git:
       url: https://github.com/tekartik/app_web_utils.dart
-      ref: dart3a
       path: packages/sw_build
     version: '>=0.1.0'
 

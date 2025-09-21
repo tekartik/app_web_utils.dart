@@ -16,17 +16,14 @@ dependencies:
     git:
       url: https://github.com/tekartik/app_web_utils.dart
       path: packages/app_build
-      ref: dart3a
     version: '>=0.1.1'
   tekartik_firebase_build:
     git:
       url: https://github.com/tekartik/app_build.dart
-      ref: dart3a
       path: packages/firebase_build
   tekartik_web_publish:
     git:
       url: https://github.com/tekartik/app_build.dart
-      ref: dart3a
       path: packages/web_publish
 
 dev_dependencies:

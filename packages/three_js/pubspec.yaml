@@ -14,16 +14,13 @@ dependencies:
   tekartik_js_utils_interop:
     git:
       url: https://github.com/tekartik/js_utils.dart
-      ref: dart3a
       path: js_utils_interop
   tekartik_common_utils:
     git:
       url: https://github.com/tekartik/common_utils.dart
-      ref: dart3a
   tekartik_js_utils:
     git:
       url: https://github.com/tekartik/js_utils.dart
-      ref: dart3a
       path: js_utils
 
 dev_dependencies:

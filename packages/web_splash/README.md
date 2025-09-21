@@ -4,7 +4,6 @@
 tekartik_web_splash:
   git:
     url: https://github.com/tekartik/app_web_utils.dart
-    ref: dart3a
     path: packages/web_splash
   version: '>=0.1.0'
 ```
