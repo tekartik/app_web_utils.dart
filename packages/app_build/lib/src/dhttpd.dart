@@ -1,3 +1,4 @@
+import 'package:fs_shim/fs_io.dart';
 import 'package:process_run/shell.dart';
 
 import 'import.dart';
@@ -9,7 +10,7 @@ var _dhttpdReady = false;
 Future<void> dhttpdReady({bool verbose = false, bool force = false}) async {
   if (!_dhttpdReady || force) {
     if (verbose) {
-      print('dhttpd(force: $force)');
+      stdout.writeln('dhttpd(force: $force)');
     }
 
     await _dhttpdReadyLock.synchronized(() async {

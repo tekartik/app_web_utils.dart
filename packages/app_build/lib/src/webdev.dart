@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dev_build/build_support.dart';
 import 'package:process_run/shell.dart';
 
@@ -10,7 +12,7 @@ var _webdevReady = false;
 Future<void> webdevReady({bool verbose = false, bool force = false}) async {
   if (!_webdevReady || force) {
     if (verbose) {
-      print('webdevReady(force: $force)');
+      stdout.writeln('webdevReady(force: $force)');
     }
     await _webdevReadyLock.synchronized(() async {
       if (!_webdevReady) {

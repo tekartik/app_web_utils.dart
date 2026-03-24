@@ -48,7 +48,7 @@ Future<void> webdevPubUpgrade(String path) async {
 Future<void> webdevClean(String path, {String folder = 'web'}) async {
   try {
     var dir = 'build';
-    print('Deleting \'$dir\' folder');
+    stdout.writeln('Deleting \'$dir\' folder');
     await Directory(join(path, dir)).delete(recursive: true);
   } catch (_) {}
 }
@@ -83,7 +83,7 @@ Future<void> httpDeployServe(
   await checkAndActivatePackage('dhttpd');
   deployDir ??= join(dir, 'deploy', folder);
   var shell = Shell(workingDirectory: dir);
-  print('http://localhost:8080');
+  stdout.writeln('http://localhost:8080');
   await shell.run(
     'dart pub global run dhttpd --path ${shellArgument(deployDir)}',
   );
