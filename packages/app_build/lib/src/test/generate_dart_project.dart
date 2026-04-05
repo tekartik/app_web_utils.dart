@@ -7,7 +7,7 @@ import 'package:tekartik_app_web_build/src/import.dart';
 extension _DirectoryExt on Directory {
   /// Create if needed
   Future<void> prepare() async {
-    if (await exists()) {
+    if (existsSync()) {
       try {
         await delete(recursive: true);
       } catch (_) {}
