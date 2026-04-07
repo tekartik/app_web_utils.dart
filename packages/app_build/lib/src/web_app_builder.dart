@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:path/path.dart';
 import 'package:tekartik_app_web_build/app_build.dart';
+import 'package:tekartik_app_web_build/src/import.dart';
+import 'package:tekartik_deploy/fs_deploy.dart';
 import 'package:tekartik_web_publish/surge_web_publish.dart';
 import 'package:tekartik_web_publish/web_publish.dart';
+
 import 'build.dart';
 import 'build_common.dart';
 
@@ -25,14 +30,44 @@ class WebAppBuilder implements CommonAppBuilder {
     await webPackageClean(path, deployDirectory: options.deployDir);
   }
 
+  String get _webbuildOutPath => join(path, 'build', options.srcDir);
+
   /// Build
   Future<void> build() async {
     await webdevBuild(path, folder: options.srcDir);
+    await _webAppBuildToDeploy();
   }
 
   /// Serve
   Future<void> serve() async {
     await webdevServe(path, folder: options.srcDir, port: options.webPort);
+  }
+
+  String _fixFolder(String path, String folder) {
+    if (isAbsolute(folder)) {
+      return folder;
+    }
+    return join(path, folder);
+  }
+
+  /// Copy to deploy using deploy.yaml
+  Future<void> _webAppBuildToDeploy() async {
+    var buildFolder = _webbuildOutPath;
+    var deployDir = _fixFolder(path, options.deployDir);
+
+    var deployFile = File(join(buildFolder, 'deploy.yaml'));
+    // ignore: avoid_slow_async_io
+    if (!(await deployFile.exists())) {
+      stderr.writeln('Missing deploy.yaml file ($deployFile)');
+      return;
+    }
+    stdout.writeln('fs deploying to: $deployDir');
+    await fsDeploy(
+      options: FsDeployOptions()..noSymLink = true,
+      yaml: deployFile,
+      src: Directory(buildFolder),
+      dst: Directory(deployDir),
+    );
   }
 }
 
@@ -75,6 +110,7 @@ class SurgeWebAppBuilder
 
   /// Constructor.
   SurgeWebAppBuilder({required this.options});
+
   @override
   Future<void> build() async {
     await webAppBuilder.build();
