@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:service_worker/window.dart' as sw;
 import 'package:tekartik_browser_utils/arguments_option.dart';
 

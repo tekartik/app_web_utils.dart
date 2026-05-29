@@ -19,5 +19,5 @@ Future<void> swPackageBuild(String path, {String directory = 'sw'}) async {
   var files = await Directory(
     join(path, 'build', directory),
   ).list().where((event) => event.path.endsWith('dart.js')).toList();
-  print(files);
+  stdout.writeln(files);
 }

@@ -11,7 +11,7 @@ Future<void> generateWebAppServiceWorker(String dir) async {
     if (entity is File) {
       var bytes = entity.readAsBytesSync();
       var hash = md5.convert(bytes).toString();
-      print('$hash $entity');
+      stdout.writeln('$hash $entity');
     }
   }
 }
