@@ -215,6 +215,7 @@ extension MeshBasicMaterialParametersJsExt on MeshBasicMaterialParametersJs {
 
   external set color(JSAny? /*Color|String|num*/ v);
 }
+
 //
 // Object3D
 //
@@ -349,6 +350,7 @@ extension EulerJsExt on EulerJs {
 
   external set order(String v);
 }
+
 // WebGL Renderer
 
 /// WebGLRenderer parameters

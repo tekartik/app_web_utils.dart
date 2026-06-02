@@ -15,6 +15,7 @@ Future<void> generateWebAppServiceWorker(String dir) async {
     }
   }
 }
+
 // Source: https://github.com/flutter/flutter/blob/master/packages/flutter_tools/lib/src/build_system/targets/web.dart
 // Copyright 2014 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
