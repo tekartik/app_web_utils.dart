@@ -47,6 +47,7 @@ class WebAppBuilder implements CommonAppBuilder {
     if (isAbsolute(folder)) {
       return folder;
     }
+
     return join(path, folder);
   }
 
@@ -169,12 +170,14 @@ mixin CommonWebAppBuilderMixin implements CommonWebAppBuilder {
   /// Build and serve
   Future<void> buildAndServe() async {
     await build();
+
     await serveDeployed();
   }
 
   /// Build and serve
   Future<void> buildAndDeploy() async {
     await build();
+
     await deploy();
   }
 }

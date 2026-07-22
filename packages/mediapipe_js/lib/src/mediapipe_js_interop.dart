@@ -151,6 +151,7 @@ Future<MediaPipeVisionModuleJs> importMediapipeVisionModule({
   var module = await importModule(
     _mediapipeModuleBase.withVersion(version).toJS,
   ).toDart;
+
   return MediaPipeVisionModuleJs(module);
 }
 

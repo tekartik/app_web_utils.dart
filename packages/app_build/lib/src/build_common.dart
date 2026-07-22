@@ -16,6 +16,7 @@ const webAppPortDefault = 8060;
 
 /// Compat. to deprecate.
 // @Deprecated('use WebAppBuildOptions')
+/// Typedef representing [WebAppOptions].
 typedef WebAppOptions = WebAppBuildOptions;
 
 /// Local web app options.

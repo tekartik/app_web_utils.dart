@@ -16,6 +16,7 @@ external JSObject? get threeJsImports;
 extension type ThreeModuleJs._(JSObject _) implements JSObject {}
 
 extension type GLTFLoaderModuleJs._(JSObject _) implements JSObject {}
+
 extension type FBXLoaderModuleJs._(JSObject _) implements JSObject {}
 
 /// Three js module ext
@@ -80,6 +81,7 @@ Model getThreeJsImports({Version? version}) {
 }
 
 var _importMapDone = false;
+
 Future<void> createThreeJsImportMap({Version? version}) async {
   if (_importMapDone) {
     return;
@@ -109,6 +111,7 @@ const _gltfLocalerJsModuleBase =
     'https://cdn.jsdelivr.net/npm/three@{{version}}/examples/jsm/loaders/GLTFLoader.js';
 const _fbxLocalerJsModuleBase =
     'https://cdn.jsdelivr.net/npm/three@{{version}}/examples/jsm/loaders/FBXLoader.js';
+
 Future<GLTFLoaderModuleJs> importGLTFLoaderJsModule({Version? version}) async {
   version ??= threeJsLatestVersion;
   var url = _gltfLocalerJsModuleBase.withVersion(version);
@@ -136,6 +139,7 @@ extension WebGLRendererProtoJsExt on WebGLRendererProtoJs {
 }
 
 extension type BufferGeometryJs._(JSObject _) implements JSObject {}
+
 extension type BoxGeometryJs._(JSObject _) implements BufferGeometryJs {
   factory BoxGeometryJs(
     num width,
@@ -153,6 +157,7 @@ extension type BoxGeometryJs._(JSObject _) implements BufferGeometryJs {
     depthSegments,
   );
 }
+
 extension type BoxGeometryProtoJs._(JSObject _) implements JSObject {}
 
 extension BoxGeometryProtoJsExt on BoxGeometryProtoJs {
@@ -183,6 +188,7 @@ extension type MeshJs._(JSObject _) implements Object3DJs {
   factory MeshJs(BufferGeometryJs geometry, MaterialJs material) =>
       _threeJsModule.meshProto.create(geometry, material);
 }
+
 extension type MeshProtoJs._(JSObject _) implements JSObject {}
 
 extension MeshProtoJsExt on MeshProtoJs {
@@ -193,10 +199,12 @@ extension MeshProtoJsExt on MeshProtoJs {
 }
 
 extension type MaterialJs._(JSObject _) implements JSObject {}
+
 extension type MeshBasicMaterialJs._(JSObject _) implements MaterialJs {
   factory MeshBasicMaterialJs(MeshBasicMaterialParametersJs parameters) =>
       _threeJsModule.meshBasicMaterialProto.create(parameters);
 }
+
 extension type MeshBasicMaterialProtoJs._(JSObject _) implements JSObject {}
 
 extension MeshBasicMaterialProtoJsExt on MeshBasicMaterialProtoJs {
@@ -231,6 +239,7 @@ extension Object3DJsExt on Object3DJs {
 
   /// Object's local rotation (Euler angles), in radians.
   external EulerJs get rotation;
+
   external set rotation(EulerJs rotation);
 }
 
@@ -239,6 +248,7 @@ extension Object3DJsExt on Object3DJs {
 extension type SceneJs._(JSObject _) implements Object3DJs {
   factory SceneJs() => _threeJsModule.sceneProto.create();
 }
+
 extension type SceneProtoJs._(JSObject _) implements JSObject {}
 
 extension SceneProtoJsExt on SceneProtoJs {
@@ -254,6 +264,7 @@ extension type SceneParametersJs._(JSObject _) implements JSObject {
 // Camera
 
 extension type CameraJs._(JSObject _) implements Object3DJs {}
+
 extension type PerspectiveCameraJs._(JSObject _) implements CameraJs {
   /// .aspect : Float
   /// Camera frustum aspect ratio, usually the canvas width / canvas height. Default is 1 (square canvas).
@@ -266,7 +277,6 @@ extension type PerspectiveCameraJs._(JSObject _) implements CameraJs {
   ///
   /// .near : Float
   /// Camera frustum near plane. Default is 0.1.
-  ///
   factory PerspectiveCameraJs(
     double fov,
     double aspect,
@@ -274,6 +284,7 @@ extension type PerspectiveCameraJs._(JSObject _) implements CameraJs {
     double far,
   ) => _threeJsModule.perspectiveCameraProto.create(fov, aspect, near, far);
 }
+
 extension type PerspectiveCameraProtoJs._(JSObject _) implements JSObject {}
 
 extension PerspectiveCameraProtoJsExt on PerspectiveCameraProtoJs {
@@ -298,6 +309,7 @@ extension type PerspectiveCameraParametersJs._(JSObject _) implements JSObject {
 
 // Vector 3
 extension type VectorJs._(JSObject _) implements JSObject {}
+
 extension type Vector3Js._(JSObject _) implements JSObject {
   factory Vector3Js(num x, num y, num z) =>
       (_threeJsModule['Vector3'] as JSFunction).callAsConstructor(

@@ -14,6 +14,7 @@ Future<void> webdevBuild(
   String? folder = webAppSrcDirDefault,
 }) async {
   folder ??= 'web';
+
   await webdevReady();
   var shell = Shell(workingDirectory: dir);
   await shell.run('webdev build --output $folder:${join('build', folder)}');
@@ -49,6 +50,7 @@ Future<void> webdevClean(String path, {String folder = 'web'}) async {
   try {
     var dir = 'build';
     stdout.writeln('Deleting \'$dir\' folder');
+
     await Directory(join(path, dir)).delete(recursive: true);
   } catch (_) {}
 }

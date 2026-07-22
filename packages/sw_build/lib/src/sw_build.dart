@@ -8,7 +8,6 @@ import 'import.dart';
 Future<void> packageBuildWebWorker() async {}
 
 /// Build for node, adding preamble for generated js files.
-///
 Future<void> swPackageBuild(String path, {String directory = 'sw'}) async {
   var shell = Shell(workingDirectory: path);
   await shell.run(
