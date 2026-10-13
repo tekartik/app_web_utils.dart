@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:path/path.dart';
 import 'package:tekartik_app_web_build/app_build.dart';
 import 'package:tekartik_app_web_build/src/import.dart';
-import 'package:tekartik_deploy/fs_deploy.dart';
 import 'package:tekartik_web_publish/surge_web_publish.dart';
 import 'package:tekartik_web_publish/web_publish.dart';
 
@@ -30,8 +29,6 @@ class WebAppBuilder implements CommonAppBuilder {
     await webPackageClean(path, deployDirectory: options.deployDir);
   }
 
-  String get _webbuildOutPath => join(path, 'build', options.srcDir);
-
   /// Build
   Future<void> build() async {
     await webdevBuild(path, folder: options.srcDir);
@@ -43,33 +40,36 @@ class WebAppBuilder implements CommonAppBuilder {
     await webdevServe(path, folder: options.srcDir, port: options.webPort);
   }
 
-  String _fixFolder(String path, String folder) {
-    if (isAbsolute(folder)) {
-      return folder;
-    }
-
-    return join(path, folder);
-  }
-
-  /// Copy to deploy using deploy.yaml
+  /// Copy to deploy using deploy.yaml, if any
   Future<void> _webAppBuildToDeploy() async {
-    var buildFolder = _webbuildOutPath;
-    var deployDir = _fixFolder(path, options.deployDir);
-
-    var deployFile = File(join(buildFolder, 'deploy.yaml'));
+    var deployFile = File(join(path, _buildDir(options), 'deploy.yaml'));
     // ignore: avoid_slow_async_io
     if (!(await deployFile.exists())) {
       stderr.writeln('Missing deploy.yaml file ($deployFile)');
       return;
     }
-    stdout.writeln('fs deploying to: $deployDir');
-    await fsDeploy(
-      options: FsDeployOptions()..noSymLink = true,
-      yaml: deployFile,
-      src: Directory(buildFolder),
-      dst: Directory(deployDir),
-    );
+    stdout.writeln('fs deploying to: ${join(path, options.deployDir)}');
+    await _copyBuildToDeploy(options);
   }
+}
+
+/// Build folder, relative to the package.
+String _buildDir(WebAppBuildOptions options) => join('build', options.srcDir);
+
+/// Copy the build to the deploy folder using deploy.yaml (required).
+Future<void> _copyBuildToDeploy(WebAppBuildOptions options) async {
+  await webAppBuildToDeploy(
+    options.packageTop,
+    deployDir: options.deployDir,
+    buildDir: _buildDir(options),
+  );
+}
+
+/// Build then copy the build to the deploy folder (deploy.yaml required),
+/// for the local and surge builders.
+Future<void> webAppBuildAndCopyToDeploy(WebAppBuildOptions options) async {
+  await webdevBuild(options.packageTop, folder: options.srcDir);
+  await _copyBuildToDeploy(options);
 }
 
 /// New builder helper
@@ -114,12 +114,7 @@ class SurgeWebAppBuilder
 
   @override
   Future<void> build() async {
-    await webAppBuilder.build();
-    await webAppBuildToDeploy(
-      path,
-      deployDir: options.buildOptions.deployDir,
-      buildDir: join('build', options.buildOptions.srcDir),
-    );
+    await webAppBuildAndCopyToDeploy(buildOptions);
   }
 
   @override
@@ -228,6 +223,13 @@ class FirebaseWebAppBuilder
   /// Build target.
   @override
   String get target => options.deployOptions.target;
+
+  /// Clean the build and the hosting public folder, keeping the hosting
+  /// configuration (firebase.json, .firebaserc) of the deploy folder.
+  @override
+  Future<void> clean() async {
+    await webPackageClean(path, deployDirectory: join(deployDir, 'public'));
+  }
 
   /// Build
   @override

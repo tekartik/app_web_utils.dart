@@ -2,17 +2,30 @@ import 'dart:io';
 
 import 'package:path/path.dart';
 
-/// Clean node app
-Future webPackageClean(String path, {String? deployDirectory}) async {
-  deployDirectory ??= 'deploy';
-  stdout.writeln('deleting "build"');
-  try {
-    await Directory('build').delete(recursive: true);
-  } catch (_) {}
+import 'build_common.dart';
 
-  var indexJs = join(deployDirectory, 'index.js');
-  stdout.writeln('deleting "$indexJs"');
+/// Clean a web app package at [path]: deletes its `build` folder and the
+/// folder the build is copied to, [deployDirectory] (default `deploy`,
+/// relative to [path]).
+///
+/// The deploy folder is only deleted when it is inside [path].
+Future<void> webPackageClean(String path, {String? deployDirectory}) async {
+  deployDirectory ??= webAppDeployDirDefault;
+  await _deleteDirectory(join(path, 'build'));
+
+  var deployDir = isAbsolute(deployDirectory)
+      ? deployDirectory
+      : join(path, deployDirectory);
+  if (isWithin(normalize(absolute(path)), normalize(absolute(deployDir)))) {
+    await _deleteDirectory(deployDir);
+  } else {
+    stdout.writeln('not deleting "$deployDir", outside "$path"');
+  }
+}
+
+Future<void> _deleteDirectory(String path) async {
+  stdout.writeln('deleting "$path"');
   try {
-    await File(indexJs).delete();
+    await Directory(path).delete(recursive: true);
   } catch (_) {}
 }

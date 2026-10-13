@@ -1,4 +1,3 @@
-import 'package:path/path.dart';
 import 'package:process_run/stdio.dart';
 import 'package:tekartik_app_web_build/app_build.dart';
 import 'package:tekartik_web_publish/web_publish.dart';
@@ -41,12 +40,7 @@ class WebAppLocalBuilder
   WebAppLocalBuilder({required this.options});
   @override
   Future<void> build() async {
-    await webAppBuilder.build();
-    await webAppBuildToDeploy(
-      path,
-      deployDir: buildOptions.deployDir,
-      buildDir: join('build', buildOptions.srcDir),
-    );
+    await webAppBuildAndCopyToDeploy(buildOptions);
   }
 
   @override

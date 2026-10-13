@@ -6,7 +6,7 @@ import 'package:test/test.dart';
 void main() {
   test('show/hide', () async {
     // no op on non web
-    webSplashReady;
+    webSplashReady();
     webSplashHide();
   });
 }
