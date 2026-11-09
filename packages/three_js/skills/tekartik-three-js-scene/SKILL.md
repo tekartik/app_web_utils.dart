@@ -36,7 +36,9 @@ yourself on top of the same `JSObject` extension types.
   (`SceneJs()`, `BoxGeometryJs(...)`, `WebGLRendererJs(...)`, `Vector3Js(...)`,
   `EulerJs(...)`, ...) reads a module cached by that call, and throws on a null
   check if it has not completed. The import is memoized, so calling it again is
-  free and always returns the same `ThreeModuleJs`.
+  free and always returns the same `ThreeModuleJs`: the version of the first
+  call wins, a later `version:` is ignored (same for
+  `createThreeJsImportMap`).
 * `importThreeJsModule({version, createImportMap})` loads
   `https://cdn.jsdelivr.net/npm/three@<version>/build/three.module.js`.
   `version` defaults to `threeJsLatestVersion` (a `pub_semver` `Version`, from
@@ -57,7 +59,10 @@ yourself on top of the same `JSObject` extension types.
   `MeshBasicMaterialJs(MeshBasicMaterialParametersJs(color: 0x00ff00))`. All
   of `SceneJs`, `MeshJs`, `CameraJs` are `Object3DJs`, which exposes `add()`,
   `position` (`Vector3Js`, with `x`/`y`/`z` `num` getters and setters) and
-  `rotation` (`EulerJs`, `x`/`y`/`z` in radians plus `order`).
+  `rotation` (`EulerJs`, `x`/`y`/`z` in radians plus `order`). Both are
+  read-only properties in three.js: `object.position = v` and
+  `object.rotation = e` copy into the existing objects (`copy`), which also
+  keeps the rotation and the quaternion in sync.
 * Render with `renderer.render(scene, camera)`, and animate with
   `web.window.requestAnimationFrame(callback.toJS)` re-registering on each
   frame; there is no animation loop helper in the package.

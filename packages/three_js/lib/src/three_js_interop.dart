@@ -41,7 +41,7 @@ extension ThreeModuleJsExt on ThreeModuleJs {
   external PerspectiveCameraProtoJs get perspectiveCameraProto;
 }
 
-/// Latest version of MediaPipe
+/// The three.js version loaded by default.
 final threeJsLatestVersion = Version(0, 169, 0);
 
 const _threeJsModuleBase =
@@ -234,13 +234,18 @@ extension Object3DJsExt on Object3DJs {
   /// Adds object as child of this object.
   external void add(Object3DJs object);
 
-  external set position(Vector3Js position);
+  /// Copies [value] into [position] (three.js `position` is a read-only
+  /// property: assigning it does nothing with dart2js and throws with
+  /// dart2wasm).
+  set position(Vector3Js value) => position.copy(value);
   external Vector3Js get position;
 
   /// Object's local rotation (Euler angles), in radians.
   external EulerJs get rotation;
 
-  external set rotation(EulerJs rotation);
+  /// Copies [value] into [rotation] (read-only in three.js, like
+  /// [position]).
+  set rotation(EulerJs value) => rotation.copy(value);
 }
 
 // Scene
@@ -320,6 +325,9 @@ extension type Vector3Js._(JSObject _) implements JSObject {
 }
 
 extension Vector3JsExt on Vector3Js {
+  /// Copies the values of [v] into this vector.
+  external Vector3Js copy(Vector3Js v);
+
   external num get x;
 
   external set x(num v);
@@ -346,6 +354,9 @@ extension type EulerJs._(JSObject _) implements JSObject {
 }
 
 extension EulerJsExt on EulerJs {
+  /// Copies the values of [euler] into this euler.
+  external EulerJs copy(EulerJs euler);
+
   external num get x;
 
   external set x(num v);
