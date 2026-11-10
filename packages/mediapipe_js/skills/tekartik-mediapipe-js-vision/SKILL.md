@@ -58,7 +58,9 @@ the module has to be bound by hand.
   (`'VIDEO'`) instead of raw strings.
 * Detection must match the running mode: `detect(TexImageSourceJs)` needs
   `IMAGE`, `detectForVideo(TexImageSourceJs, double timestamp)` needs `VIDEO`
-  (`timestamp` is typically `videoElement.currentTime`). Switch with
+  (`timestamp` in milliseconds, increasing from one call to the next: use
+  `web.window.performance.now()`, not `videoElement.currentTime`, which is in
+  seconds). Switch with
   `landmarker.setOptions(FaceLandmarkerOptionsJs(runningMode: ...))`:
   `setOptions` merges, so a partial options object only changes the fields it
   carries. Track the current mode yourself, the only readable option is the
@@ -138,7 +140,7 @@ void detectVideo(FaceLandmarkerJs landmarker, web.HTMLVideoElement video) {
   }
   var result = landmarker.detectForVideo(
     TexImageSourceJs.fromVideoElement(video),
-    video.currentTime,
+    web.window.performance.now(), // milliseconds, not video.currentTime
   );
   print(jsObjectKeys(result));
 }

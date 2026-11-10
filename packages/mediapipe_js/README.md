@@ -53,7 +53,9 @@ FaceLandmarkerResultJs detectFaces(
 * The module, the wasm files and the model come from CDNs on first use: guard
   the setup with try/catch. `importMediapipeVisionModule(version:)` and
   `forVisionTasks(basePath:)` pin or self-host them.
-* `detect` needs the `IMAGE` running mode, `detectForVideo` the `VIDEO` one
+* `detect` needs the `IMAGE` running mode, `detectForVideo` the `VIDEO` one,
+  with a timestamp in milliseconds (`web.window.performance.now()`, not the
+  video `currentTime`, which is in seconds)
   (`setOptions` switches).
 * `FaceLandmarkerResultJs` has no members yet: bind what you read
   (`faceLandmarks`...) with your own extension.

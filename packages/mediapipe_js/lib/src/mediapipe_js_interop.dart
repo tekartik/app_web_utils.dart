@@ -43,6 +43,10 @@ extension FaceLandmarkerJsExt on FaceLandmarkerJs {
   external FaceLandmarkerResultJs detect(TexImageSourceJs inputImage);
 
   /// Performs face landmarks detection on the provided video frame and waits synchronously for the response. Only use this method when the FaceLandmarker is created with running mode video.
+  ///
+  /// [timestamp] is the time of the frame in milliseconds (for example
+  /// `web.window.performance.now()`, not `HTMLVideoElement.currentTime`,
+  /// which is in seconds), increasing from one call to the next.
   @JS('detectForVideo')
   external FaceLandmarkerResultJs detectForVideo(
     TexImageSourceJs inputVideo,
