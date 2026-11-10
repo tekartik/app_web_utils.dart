@@ -4,20 +4,22 @@ description: >-
   Use when registering the service worker of a Dart web app from the page with
   tekartik_sw_utils: appInitServiceWorker() to register sw.js defensively at
   startup, optionNoServiceWorker (the ?no-sw url argument, ArgumentsOption) to
-  disable it while developing, and when to fall back to package:service_worker
-  window.dart (register, isSupported, ready, onMessage) for a custom script
-  name or scope.
+  disable it while developing, and when to call
+  window.navigator.serviceWorker of package:web (register, ready, onmessage)
+  yourself for a custom script name or scope. Works with dart2js and
+  dart2wasm.
 ---
 
 # Registering a service worker from the page (tekartik_sw_utils)
 
 `tekartik_sw_utils` is a two-symbol convenience package for the window side of
 a Dart web app: one call that registers `sw.js` if the browser supports it and
-the url does not ask to skip it. Browser only.
+the url does not ask to skip it. Browser only, on `package:web` and
+`dart:js_interop`: dart2js and dart2wasm (`--wasm`) builds.
 
 ## Guidelines
 
-* Git dependency (not on pub.dev); it pulls `service_worker` and
+* Git dependency (not on pub.dev); it pulls `web` and
   `tekartik_browser_utils`:
   ```yaml
   dependencies:
@@ -25,24 +27,28 @@ the url does not ask to skip it. Browser only.
       git:
         url: https://github.com/tekartik/app_web_utils.dart
         path: packages/sw_utils
-      version: '>=0.1.0'
   ```
 * Import `package:tekartik_sw_utils/sw_utils.dart`. It exports exactly
   `appInitServiceWorker()` and `optionNoServiceWorker`. It reads
   `window.location`, so it only runs in the browser (`web/main.dart` of a
-  webdev app, or a `@TestOn('browser')` test), never on the VM.
+  webdev app, or a `@TestOn('browser')` test), never on the VM. Until
+  2026-11 it used `package:service_worker` (`dart:html`) and did not build
+  with dart2wasm; it is on `package:web` now.
 * `await appInitServiceWorker()` from `main()`: it checks
-  `optionNoServiceWorker`, then `service_worker`'s `isSupported`, then
-  `register('sw.js')` with a 500 ms timeout. It never throws and never returns
+  `optionNoServiceWorker`, then whether `navigator.serviceWorker` exists (it
+  does not on an insecure http page), then
+  `navigator.serviceWorker.register('sw.js')` with a 500 ms timeout. It never throws and never returns
   a registration: every outcome (disabled, unsupported, registered, error) is
   just printed to the console. Treat it as fire-and-forget app startup.
 * Because of that timeout, a completed `appInitServiceWorker()` does not mean
   the worker is active. When you need the active worker (to `postMessage` it),
-  `await sw.ready` from `package:service_worker/window.dart` afterwards.
-* The script name `sw.js` and the default `/` scope are hardcoded. For another
+  `await web.window.navigator.serviceWorker.ready.toDart` afterwards.
+* The script name `sw.js` is hardcoded and resolved against the page url;
+  without a scope option its scope is the folder of the script (`/` for a
+  page at the site root, `/app/` for `/app/index.html`). For another
   file name (a Dart worker compiled to `sw.dart.js`), another scope, or to
-  handle errors, call `register(...)` from
-  `package:service_worker/window.dart` yourself instead.
+  handle errors, call `web.window.navigator.serviceWorker.register(...)`
+  (`package:web`) yourself instead.
 * `optionNoServiceWorker` is an `ArgumentsOption('no-sw')` from
   `package:tekartik_browser_utils/arguments_option.dart`, parsed from the
   query string: `has()` returns `true` for `?no-sw`, `false` for `?no-no-sw`,
@@ -73,19 +79,25 @@ Future<void> main() async {
 ### Register, then talk to the active worker
 
 ```dart
-import 'package:service_worker/window.dart' as sw;
+import 'dart:js_interop';
+import 'dart:js_interop_unsafe';
+
 import 'package:tekartik_sw_utils/sw_utils.dart';
+import 'package:web/web.dart' as web;
 
 Future<void> main() async {
   await appInitServiceWorker();
-  if (sw.isNotSupported || (optionNoServiceWorker.has() ?? false)) {
+  var navigator = web.window.navigator;
+  if (!(navigator as JSObject).has('serviceWorker') ||
+      (optionNoServiceWorker.has() ?? false)) {
     return;
   }
-  var registration = await sw.ready;
-  sw.onMessage.listen((event) {
-    print('from worker: ${event.data}');
-  });
-  registration.active?.postMessage('hello');
+  var container = navigator.serviceWorker;
+  var registration = await container.ready.toDart;
+  container.onmessage = (web.MessageEvent event) {
+    print('from worker: ${event.data.dartify()}');
+  }.toJS;
+  registration.active?.postMessage('hello'.toJS);
 }
 ```
 
@@ -108,19 +120,23 @@ Future<void> main() async {
 ### Custom script name and scope
 
 ```dart
-import 'package:service_worker/window.dart' as sw;
-import 'package:tekartik_sw_utils/sw_utils.dart';
+import 'dart:js_interop';
+import 'dart:js_interop_unsafe';
 
-/// appInitServiceWorker only knows about 'sw.js' at the root.
-Future<sw.ServiceWorkerRegistration?> registerDartWorker() async {
-  if ((optionNoServiceWorker.has() ?? false) || sw.isNotSupported) {
+import 'package:tekartik_sw_utils/sw_utils.dart';
+import 'package:web/web.dart' as web;
+
+/// appInitServiceWorker only knows about 'sw.js' next to the page.
+Future<web.ServiceWorkerRegistration?> registerDartWorker() async {
+  var navigator = web.window.navigator;
+  if ((optionNoServiceWorker.has() ?? false) ||
+      !(navigator as JSObject).has('serviceWorker')) {
     return null;
   }
   try {
-    return await sw.register(
-      'sw.dart.js',
-      sw.ServiceWorkerRegisterOptions(scope: '/'),
-    );
+    return await navigator.serviceWorker
+        .register('sw.dart.js'.toJS, web.RegistrationOptions(scope: '/'))
+        .toDart;
   } catch (e) {
     print('service worker error $e');
     return null;

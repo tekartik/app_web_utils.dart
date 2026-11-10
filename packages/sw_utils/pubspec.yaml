@@ -7,10 +7,7 @@ environment:
   sdk: ^3.12.0
 
 dependencies:
-  service_worker: '>=0.3.0-0'
-  #  git:
-  #    url: https://github.com/tekartikdev/service_worker
-  #    ref: dart3a
+  web: '>=1.1.0'
   tekartik_browser_utils:
     git:
       url: https://github.com/tekartik/browser_utils.dart
@@ -18,4 +15,6 @@ dependencies:
 
 dev_dependencies:
   test: ">=1.31.0"
+  # run_ci runs the browser tests of a package depending on it only.
+  build_web_compilers: ">=4.4.19"
 resolution: workspace
