@@ -5,6 +5,7 @@ import 'dart:io';
 import 'dart:isolate';
 
 import 'package:path/path.dart';
+import 'package:process_run/shell.dart';
 import 'package:tekartik_app_web_build/app_build.dart';
 import 'package:test/test.dart';
 
@@ -111,11 +112,17 @@ Future<void> main(List<String> args) async {
 }
 ''');
       var packageConfig = (await Isolate.packageConfig)!.toFilePath();
-      var result = await Process.run(Platform.resolvedExecutable, [
-        '--packages=$packageConfig',
-        script,
-        pkg,
-      ], workingDirectory: cwd);
+      var result =
+          await Shell(
+            workingDirectory: cwd,
+            stdin: const Stream<List<int>>.empty(),
+            verbose: false,
+            throwOnError: false,
+          ).runExecutableArguments(Platform.resolvedExecutable, [
+            '--packages=$packageConfig',
+            script,
+            pkg,
+          ]);
       expect(result.exitCode, 0, reason: '${result.stdout}${result.stderr}');
       expect(_exists(join(pkg, 'build')), isFalse);
       expect(_exists(join(cwd, 'build', 'web', 'file.txt')), isTrue);
