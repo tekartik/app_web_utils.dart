@@ -44,12 +44,14 @@ const RESOURCES = {
 const CORE = [
   ${coreBundle.map((String file) => '"$file"').join(',\n')}];
 // During install, the TEMP cache is populated with the application shell files.
+// Cached under their plain url (the one the fetch handler looks up), the
+// hashes are already in this worker bytes.
 self.addEventListener("install", (event) => {
   self.skipWaiting();
   return event.waitUntil(
     caches.open(TEMP).then((cache) => {
       return cache.addAll(
-        CORE.map((value) => new Request(value + '?revision=' + RESOURCES[value], {'cache': 'reload'})));
+        CORE.map((value) => new Request(value, {'cache': 'reload'})));
     })
   );
 });
@@ -171,7 +173,7 @@ async function downloadOffline() {
     }
     currentContent[key] = true;
   }
-  for (var resourceKey in Object.keys(RESOURCES)) {
+  for (var resourceKey of Object.keys(RESOURCES)) {
     if (!currentContent[resourceKey]) {
       resources.push(resourceKey);
     }
