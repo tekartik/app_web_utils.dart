@@ -231,13 +231,17 @@ class FirebaseWebAppBuilder
     await webPackageClean(path, deployDirectory: join(deployDir, 'public'));
   }
 
-  /// Build
+  /// Build, then copy the build to `<deployDir>/public`, keeping the hosting
+  /// configuration (firebase.json, .firebaserc) of the deploy folder.
   @override
   Future<void> build() async {
-    await webAppBuilder.build();
+    // Not webAppBuilder.build(): its copy to the deploy folder (deploy.yaml)
+    // empties the hosting folder first.
+    await webdevBuild(path, folder: buildOptions.srcDir);
     await firebaseWebAppBuildToDeploy(
       path,
-      deployDir: options.buildOptions.deployDir,
+      deployDir: buildOptions.deployDir,
+      folder: buildOptions.srcDir,
     );
   }
 

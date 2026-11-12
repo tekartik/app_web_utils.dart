@@ -1,7 +1,7 @@
 ## Setup
 
-- Create a dart package project
-- Add dependency
+- Create a dart web package (`dart create --template web <name>`)
+- Add the dependency
 
     In `pubspec.yaml`:
     ```yaml
@@ -10,10 +10,10 @@
         git:
           url: https://github.com/tekartik/app_web_utils.dart
           path: packages/app_build
-          ref: dart3a
-        version: '>=0.1.0'
-    
+
       # Needed direct dependencies
       build_runner:
       build_web_compilers:
     ```
+- Add a `web/deploy.yaml` listing the files to deploy, see the
+  [README](../README.md).

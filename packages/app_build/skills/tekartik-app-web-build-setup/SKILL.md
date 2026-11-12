@@ -63,7 +63,9 @@ in `tool/` scripts and tests, never in the web app code itself.
 * `httpDeployServe(dir, deployDir: )` activates `dhttpd` if needed and serves
   the deploy folder on `http://localhost:8080`. `dhttpdReady(force: , verbose: )`
   from `dhttpd.dart` does the activation alone (it also registers a `dhttpd`
-  shell alias); testing only.
+  shell alias); testing only. `webdevReady` and `dhttpdReady` replace the
+  global process_run `shellEnvironment` to add their alias: set your own
+  environment after them.
 * Prefer the builder objects over the raw functions for anything reusable.
   `WebAppBuildOptions({packageTop, deployDir, srcDir, webPort})` defaults to
   `packageTop: '.'`, `deployDir: 'deploy'`, `srcDir: 'web'`, dynamic port.
@@ -86,9 +88,15 @@ in `tool/` scripts and tests, never in the web app code itself.
     `deployOptions` throws `UnimplementedError`. `target` is `'local'`.
   - `FirebaseWebAppBuilder(options: FirebaseWebAppOptions(buildOptions: ,
     deployOptions: FirebaseDeployOptions(projectId: , hostingId: , target: )))`
-    for Firebase Hosting; `deploy()`/`serveDeployed()` shell out to the
-    `firebase` CLI and accept an optional `FirebaseWebAppActionController`
-    whose `cancel()` kills the running command.
+    for Firebase Hosting. Its `buildOptions.deployDir` is the hosting
+    folder (`firebase.json`, `.firebaserc`): `build()` runs webdev then
+    copies `build/<srcDir>` to `<deployDir>/public` (the `deploy.yaml` list
+    when present, the whole folder otherwise) and keeps the hosting files
+    (before 2026-11-12 a build with a `deploy.yaml` emptied the whole
+    hosting folder first); `clean()` deletes `build/` and `public/` only.
+    `deploy()`/`serveDeployed()` shell out to the `firebase` CLI there and
+    accept an optional `FirebaseWebAppActionController` whose `cancel()`
+    kills the running command.
   - `SurgeWebAppBuilder(options: SurgeWebAppOptions(buildOptions: ,
     deployOptions: SurgeWebAppDeployOptions(domain: )))` for surge.sh;
     `SurgeWebAppDeployOptions` comes from
@@ -214,9 +222,18 @@ Future<void> serveDev(String path) async {
     hostingId: 'my-app-dev',
     target: 'dev',
   );
+  // The hosting folder (firebase.json), the build goes to its public/.
+  var hostingDir = 'deploy/firebase/hosting';
+  await firebaseWebAppBuildToDeploy(path, deployDir: hostingDir);
   var controller = FirebaseWebAppActionController();
-  await firebaseWebAppBuildToDeploy(path, deployDir: 'deploy');
-  await firebaseWebAppServe(path, options, controller: controller);
-  controller.cancel();
+  // Stops the emulator after 10 minutes; from a menu, call cancel() from
+  // another item.
+  Future<void>.delayed(const Duration(minutes: 10), controller.cancel);
+  await firebaseWebAppServe(
+    path,
+    options,
+    deployDir: hostingDir,
+    controller: controller,
+  );
 }
 ```
