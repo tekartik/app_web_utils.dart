@@ -48,7 +48,14 @@ plain Dart web apps compiled with `webdev`, not Flutter web.
 * Script shape: `void main(List<String> args) => mainMenuConsole(args, () {
   ...declare menus... });`. The declaration callback must be synchronous; only
   `item` bodies may be async. Run it with `dart run tool/build_menu.dart`;
-  extra arguments select menus/items non-interactively for CI.
+  extra arguments are typed lines run first, then the menu waits for more
+  input on a terminal: `.` leaves the current menu and exits at the root, so
+  `dart run tool/build_menu.dart 0 0 . .` runs item 0 of the first target
+  menu then exits.
+* `clean` deletes `build/` and the deploy folder (inside the package only);
+  `FirebaseWebAppBuilder.clean()` only `<deployDir>/public`, keeping
+  `firebase.json` and `.firebaserc`. `deploy` / `buildAndDeploy` publish for
+  real (firebase or surge cli, logged in).
 * `menuCommonWebAppContent(builders: [...])` is the normal entry point: it
   declares one `target <builder.target>` submenu per `CommonWebAppBuilder`
   (local, firebase or surge), each filled by
